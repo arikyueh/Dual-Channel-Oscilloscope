@@ -1,0 +1,12 @@
+C:\Users\ariky\Documents\PSoC Creator\Lab4\LabProject.cydsn\LabProject.cyprj|09f82015-629f-488c-992c-a77d31b45be4
+C:\Program Files (x86)\Cypress\PSoC Creator\4.2\PSoC Creator\psoc\content\default\CyAnnotationLibrary\CyAnnotationLibrary.cylib\CyAnnotationLibrary.cyprj|7c6b0adf-c811-48e1-b74f-c7ec6e9ed68c
+C:\Users\ariky\Documents\PSoC Creator\4.2\Downloads ( 4.2).cylib\Downloads ( 4.2).cyprj|e5dd9563-32c2-4aaf-bdac-eb0ac8600da3
+C:\Program Files (x86)\Cypress\PSoC Creator\4.2\PSoC Creator\psoc\content\cycomponentlibraryupdates\CyComponentLibraryUpdates.cylib\CyComponentLibraryUpdates.cyprj|fd2fbc92-e092-4bea-8f88-232f5c513edf
+C:\Program Files (x86)\Cypress\PSoC Creator\4.2\PSoC Creator\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\CyComponentLibrary.cyprj|5bad1606-57b1-41b1-88d9-c2e80e3aa61a
+C:\Program Files (x86)\Cypress\PSoC Creator\4.2\PSoC Creator\psoc\content\cyprimitives\CyPrimitives.cylib\CyPrimitives.cyprj|4a98bf02-4c1b-43b5-935b-1ed18598d17e
+C:\Users\ariky\Documents\PSoC Creator\Lab4\I2C_test.cydsn\I2C_test.cyprj|0d6ff8f5-74fc-4662-ae66-97878adc6f8d
+C:\Program Files (x86)\Cypress\PSoC Creator\4.2\PSoC Creator\psoc\content\default\CyReferenceLibrary\CyReferenceLibrary.cylib\CyReferenceLibrary.cyprj|db022abf-852e-433d-b2e9-b2cd98df984b
+C:\Users\ariky\Documents\PSoC Creator\Lab4\Lab5Part2.cydsn\Lab5Part2.cyprj|e9d63c12-d724-42ba-8a50-fb94d9895a42
+C:\Users\ariky\Documents\PSoC Creator\Lab4\Part2.cydsn\Part2.cyprj|6501c074-d3ee-49d8-93c1-2abbd20cbd92
+C:\Users\ariky\Documents\PSoC Creator\Lab3\Part3.cydsn\Part3.cyprj|e927f637-62af-4e09-b976-69fbd62c1235
+C:\Users\ariky\Documents\PSoC Creator\Lab5\USBFS_Bulk_Wraparound01.cydsn\USBFS_Bulk_Wraparound01.cyprj|b4a2aa63-e60e-40f5-ad6f-6aba3067ea59

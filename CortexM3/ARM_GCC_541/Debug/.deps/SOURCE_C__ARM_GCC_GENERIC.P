@@ -1,0 +1,152 @@
+C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/CortexM3/ARM_GCC_541/Debug/main.o : C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/ADC.h C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/ADC_AMux.h C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/ADC_Ext_CP_Clk.h C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/ADC_IRQ.h C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/ADC_SAR.h C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/ADC_SAR_1.h C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/ADC_SAR_1_Bypass.h C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/ADC_SAR_1_Bypass_aliases.h C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/ADC_SAR_1_IRQ.h C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/ADC_SAR_1_theACLK.h C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/ADC_SAR_Bypass.h C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/ADC_SAR_Bypass_aliases.h C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/ADC_SAR_IRQ.h C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/ADC_SAR_theACLK.h C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/ADC_theACLK.h C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/AMux.h C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/CYDMAC.H C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/CYFITTER.H C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/Clock_2.h C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/CyDmac.h C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/CyFlash.h C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/CyLib.h C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/CySpc.h C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/DMA_1_dma.h C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/DMA_dma.h C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/I2CS.h C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/I2CS_PVT.h C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/LCD.h C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/LCD_LCDPort.h C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/LCD_LCDPort_aliases.h C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/Onems.h C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/Pin_1.h C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/Pin_1_aliases.h C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/Pin_2.h C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/Pin_2_aliases.h C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/Pin_3.h C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/Pin_3_aliases.h C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/Pin_4.h C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/Pin_4_aliases.h C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/SCL.h C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/SCL_aliases.h C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/SDA.h C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/SDA_aliases.h C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/Timer.h C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/USBFS.h C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/USBFS_Dm.h C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/USBFS_Dm_aliases.h C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/USBFS_Dp.h C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/USBFS_Dp_aliases.h C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/USBFS_audio.h C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/USBFS_cdc.h C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/USBFS_cydmac.h C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/USBFS_ep1_dma.h C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/USBFS_ep2_dma.h C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/USBFS_hid.h C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/USBFS_midi.h C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/USBFS_msc.h C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/USBFS_pvt.h C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/cmsis_armcc.h C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/cmsis_compiler.h C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/cmsis_gcc.h C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/core_cm3.h C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/core_cm3_psoc5.h C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/cyPm.h C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/cy_em_eeprom.h C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/cydevice.h C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/cydevice_trm.h C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/cydisabledsheets.h C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/cyfitter.h C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/cyfitter_cfg.h C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/cypins.h C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/cytypes.h C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/isr.h C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/isr_1.h C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/project.h C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/cyapicallbacks.h C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/main.c 
+
+C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/ADC.h : 
+
+C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/ADC_AMux.h : 
+
+C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/ADC_Ext_CP_Clk.h : 
+
+C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/ADC_IRQ.h : 
+
+C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/ADC_SAR.h : 
+
+C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/ADC_SAR_1.h : 
+
+C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/ADC_SAR_1_Bypass.h : 
+
+C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/ADC_SAR_1_Bypass_aliases.h : 
+
+C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/ADC_SAR_1_IRQ.h : 
+
+C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/ADC_SAR_1_theACLK.h : 
+
+C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/ADC_SAR_Bypass.h : 
+
+C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/ADC_SAR_Bypass_aliases.h : 
+
+C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/ADC_SAR_IRQ.h : 
+
+C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/ADC_SAR_theACLK.h : 
+
+C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/ADC_theACLK.h : 
+
+C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/AMux.h : 
+
+C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/CYDMAC.H : 
+
+C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/CYFITTER.H : 
+
+C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/Clock_2.h : 
+
+C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/CyFlash.h : 
+
+C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/CyLib.h : 
+
+C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/CySpc.h : 
+
+C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/DMA_1_dma.h : 
+
+C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/DMA_dma.h : 
+
+C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/I2CS.h : 
+
+C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/I2CS_PVT.h : 
+
+C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/LCD.h : 
+
+C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/LCD_LCDPort.h : 
+
+C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/LCD_LCDPort_aliases.h : 
+
+C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/Onems.h : 
+
+C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/Pin_1.h : 
+
+C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/Pin_1_aliases.h : 
+
+C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/Pin_2.h : 
+
+C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/Pin_2_aliases.h : 
+
+C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/Pin_3.h : 
+
+C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/Pin_3_aliases.h : 
+
+C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/Pin_4.h : 
+
+C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/Pin_4_aliases.h : 
+
+C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/SCL.h : 
+
+C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/SCL_aliases.h : 
+
+C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/SDA.h : 
+
+C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/SDA_aliases.h : 
+
+C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/Timer.h : 
+
+C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/USBFS.h : 
+
+C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/USBFS_Dm.h : 
+
+C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/USBFS_Dm_aliases.h : 
+
+C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/USBFS_Dp.h : 
+
+C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/USBFS_Dp_aliases.h : 
+
+C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/USBFS_audio.h : 
+
+C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/USBFS_cdc.h : 
+
+C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/USBFS_cydmac.h : 
+
+C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/USBFS_ep1_dma.h : 
+
+C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/USBFS_ep2_dma.h : 
+
+C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/USBFS_hid.h : 
+
+C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/USBFS_midi.h : 
+
+C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/USBFS_msc.h : 
+
+C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/USBFS_pvt.h : 
+
+C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/cmsis_armcc.h : 
+
+C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/cmsis_compiler.h : 
+
+C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/cmsis_gcc.h : 
+
+C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/core_cm3.h : 
+
+C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/core_cm3_psoc5.h : 
+
+C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/cyPm.h : 
+
+C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/cy_em_eeprom.h : 
+
+C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/cydevice.h : 
+
+C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/cydevice_trm.h : 
+
+C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/cydisabledsheets.h : 
+
+C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/cyfitter_cfg.h : 
+
+C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/cypins.h : 
+
+C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/cytypes.h : 
+
+C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/isr.h : 
+
+C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/isr_1.h : 
+
+C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/Generated_Source/PSoC5/project.h : 
+
+C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/cyapicallbacks.h : 
+
+C:/Users/ariky/Documents/PSoC\ Creator/Lab4/LabProject.cydsn/main.c : 
+

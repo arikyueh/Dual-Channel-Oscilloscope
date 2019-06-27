@@ -1,0 +1,3355 @@
+ARM GAS  C:\Users\ariky\AppData\Local\Temp\ccEDxqgb.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.syntax unified
+  15              		.file	"main.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text.end,"ax",%progbits
+  20              		.align	2
+  21              		.global	end
+  22              		.thumb
+  23              		.thumb_func
+  24              		.type	end, %function
+  25              	end:
+  26              	.LFB63:
+  27              		.file 1 "main.c"
+   1:main.c        **** /* ========================================
+   2:main.c        ****  *
+   3:main.c        ****  * Copyright YOUR COMPANY, THE YEAR
+   4:main.c        ****  * All Rights Reserved
+   5:main.c        ****  * UNPUBLISHED, LICENSED SOFTWARE.
+   6:main.c        ****  *
+   7:main.c        ****  * CONFIDENTIAL AND PROPRIETARY INFORMATION
+   8:main.c        ****  * WHICH IS THE PROPERTY OF your company.
+   9:main.c        ****  *
+  10:main.c        ****  * ========================================
+  11:main.c        **** */
+  12:main.c        **** #include "project.h"
+  13:main.c        **** #define TRUE 1
+  14:main.c        **** #define FALSE 0
+  15:main.c        **** #define RAM_LENGTH 64
+  16:main.c        **** int flag1=TRUE;
+  17:main.c        **** int flag2=TRUE;
+  18:main.c        **** int src1Flag1=FALSE;
+  19:main.c        **** int src1Flag2=FALSE;
+  20:main.c        **** int src2Flag1=FALSE;
+  21:main.c        **** int src2Flag2=FALSE;
+  22:main.c        **** int timeFlag=FALSE;
+  23:main.c        **** /* USB device number. */
+  24:main.c        **** #define USBFS_DEVICE  (0u)
+  25:main.c        **** 
+  26:main.c        **** /* Active endpoints of USB device. */
+  27:main.c        **** #define IN_EP_NUM     (1u)
+  28:main.c        **** #define IN2_EP_NUM    (2u)
+  29:main.c        **** #define OUT_EP_NUM    (3u)
+  30:main.c        **** 
+ARM GAS  C:\Users\ariky\AppData\Local\Temp\ccEDxqgb.s 			page 2
+
+
+  31:main.c        **** /* Size of SRAM buffer to store endpoint data. */
+  32:main.c        **** #define BUFFER_SIZE   (64u)
+  33:main.c        **** 
+  34:main.c        **** #define RD_BUFFER_SIZE        (2u)
+  35:main.c        **** #define WR_BUFFER_SIZE        (1u)
+  36:main.c        **** 
+  37:main.c        **** uint8 buffer[BUFFER_SIZE];
+  38:main.c        **** 
+  39:main.c        **** CY_ISR(end){
+  28              		.loc 1 39 0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32              		@ link register save eliminated.
+  40:main.c        ****     if (flag1){    
+  33              		.loc 1 40 0
+  34 0000 094B     		ldr	r3, .L4
+  35 0002 1B68     		ldr	r3, [r3]
+  36 0004 3BB1     		cbz	r3, .L2
+  41:main.c        ****         src1Flag1=TRUE; //set the secondary array low and primary high when DMA is done
+  37              		.loc 1 41 0
+  38 0006 094A     		ldr	r2, .L4+4
+  39 0008 0123     		movs	r3, #1
+  40 000a 1360     		str	r3, [r2]
+  42:main.c        ****         src1Flag2=FALSE;
+  41              		.loc 1 42 0
+  42 000c 0023     		movs	r3, #0
+  43 000e 5360     		str	r3, [r2, #4]
+  43:main.c        ****         flag1=FALSE;
+  44              		.loc 1 43 0
+  45 0010 054A     		ldr	r2, .L4
+  46 0012 1360     		str	r3, [r2]
+  47 0014 7047     		bx	lr
+  48              	.L2:
+  44:main.c        ****     }
+  45:main.c        ****     else{
+  46:main.c        ****         src1Flag2=TRUE;
+  49              		.loc 1 46 0
+  50 0016 054A     		ldr	r2, .L4+4
+  51 0018 0123     		movs	r3, #1
+  52 001a 5360     		str	r3, [r2, #4]
+  47:main.c        ****         src1Flag1=FALSE;
+  53              		.loc 1 47 0
+  54 001c 0021     		movs	r1, #0
+  55 001e 1160     		str	r1, [r2]
+  48:main.c        ****         flag1=TRUE;
+  56              		.loc 1 48 0
+  57 0020 014A     		ldr	r2, .L4
+  58 0022 1360     		str	r3, [r2]
+  59 0024 7047     		bx	lr
+  60              	.L5:
+  61 0026 00BF     		.align	2
+  62              	.L4:
+  63 0028 00000000 		.word	.LANCHOR0
+  64 002c 00000000 		.word	.LANCHOR1
+  65              		.cfi_endproc
+  66              	.LFE63:
+ARM GAS  C:\Users\ariky\AppData\Local\Temp\ccEDxqgb.s 			page 3
+
+
+  67              		.size	end, .-end
+  68              		.section	.text.end1,"ax",%progbits
+  69              		.align	2
+  70              		.global	end1
+  71              		.thumb
+  72              		.thumb_func
+  73              		.type	end1, %function
+  74              	end1:
+  75              	.LFB64:
+  49:main.c        ****     }
+  50:main.c        **** }
+  51:main.c        **** CY_ISR(end1){
+  76              		.loc 1 51 0
+  77              		.cfi_startproc
+  78              		@ args = 0, pretend = 0, frame = 0
+  79              		@ frame_needed = 0, uses_anonymous_args = 0
+  80              		@ link register save eliminated.
+  52:main.c        ****     if (flag2){
+  81              		.loc 1 52 0
+  82 0000 094B     		ldr	r3, .L9
+  83 0002 5B68     		ldr	r3, [r3, #4]
+  84 0004 3BB1     		cbz	r3, .L7
+  53:main.c        ****         src2Flag1=TRUE;
+  85              		.loc 1 53 0
+  86 0006 094A     		ldr	r2, .L9+4
+  87 0008 0123     		movs	r3, #1
+  88 000a 9360     		str	r3, [r2, #8]
+  54:main.c        ****         src2Flag2=FALSE;
+  89              		.loc 1 54 0
+  90 000c 0023     		movs	r3, #0
+  91 000e D360     		str	r3, [r2, #12]
+  55:main.c        ****         flag2=FALSE;
+  92              		.loc 1 55 0
+  93 0010 054A     		ldr	r2, .L9
+  94 0012 5360     		str	r3, [r2, #4]
+  95 0014 7047     		bx	lr
+  96              	.L7:
+  56:main.c        ****     }
+  57:main.c        ****     else{
+  58:main.c        ****         src2Flag2=TRUE;
+  97              		.loc 1 58 0
+  98 0016 054A     		ldr	r2, .L9+4
+  99 0018 0123     		movs	r3, #1
+ 100 001a D360     		str	r3, [r2, #12]
+  59:main.c        ****         src2Flag1=FALSE;
+ 101              		.loc 1 59 0
+ 102 001c 0021     		movs	r1, #0
+ 103 001e 9160     		str	r1, [r2, #8]
+  60:main.c        ****         flag2=TRUE;
+ 104              		.loc 1 60 0
+ 105 0020 014A     		ldr	r2, .L9
+ 106 0022 5360     		str	r3, [r2, #4]
+ 107 0024 7047     		bx	lr
+ 108              	.L10:
+ 109 0026 00BF     		.align	2
+ 110              	.L9:
+ 111 0028 00000000 		.word	.LANCHOR0
+ARM GAS  C:\Users\ariky\AppData\Local\Temp\ccEDxqgb.s 			page 4
+
+
+ 112 002c 00000000 		.word	.LANCHOR1
+ 113              		.cfi_endproc
+ 114              	.LFE64:
+ 115              		.size	end1, .-end1
+ 116              		.section	.text.time,"ax",%progbits
+ 117              		.align	2
+ 118              		.global	time
+ 119              		.thumb
+ 120              		.thumb_func
+ 121              		.type	time, %function
+ 122              	time:
+ 123              	.LFB65:
+  61:main.c        ****     }
+  62:main.c        ****         
+  63:main.c        **** }
+  64:main.c        **** CY_ISR(time){
+ 124              		.loc 1 64 0
+ 125              		.cfi_startproc
+ 126              		@ args = 0, pretend = 0, frame = 0
+ 127              		@ frame_needed = 0, uses_anonymous_args = 0
+ 128 0000 08B5     		push	{r3, lr}
+ 129              		.cfi_def_cfa_offset 8
+ 130              		.cfi_offset 3, -8
+ 131              		.cfi_offset 14, -4
+  65:main.c        ****     timeFlag=TRUE;
+ 132              		.loc 1 65 0
+ 133 0002 0120     		movs	r0, #1
+ 134 0004 034B     		ldr	r3, .L13
+ 135 0006 1861     		str	r0, [r3, #16]
+  66:main.c        ****     LCD_ClearDisplay();
+ 136              		.loc 1 66 0
+ 137 0008 FFF7FEFF 		bl	LCD_WriteControl
+ 138              	.LVL0:
+  67:main.c        ****     Timer_ReadStatusRegister();
+ 139              		.loc 1 67 0
+ 140 000c FFF7FEFF 		bl	Timer_ReadStatusRegister
+ 141              	.LVL1:
+ 142 0010 08BD     		pop	{r3, pc}
+ 143              	.L14:
+ 144 0012 00BF     		.align	2
+ 145              	.L13:
+ 146 0014 00000000 		.word	.LANCHOR1
+ 147              		.cfi_endproc
+ 148              	.LFE65:
+ 149              		.size	time, .-time
+ 150              		.section	.text.main,"ax",%progbits
+ 151              		.align	2
+ 152              		.global	main
+ 153              		.thumb
+ 154              		.thumb_func
+ 155              		.type	main, %function
+ 156              	main:
+ 157              	.LFB66:
+  68:main.c        **** }
+  69:main.c        **** 
+  70:main.c        **** int main(void)
+  71:main.c        **** {
+ARM GAS  C:\Users\ariky\AppData\Local\Temp\ccEDxqgb.s 			page 5
+
+
+ 158              		.loc 1 71 0
+ 159              		.cfi_startproc
+ 160              		@ args = 0, pretend = 0, frame = 264
+ 161              		@ frame_needed = 0, uses_anonymous_args = 0
+ 162 0000 70B5     		push	{r4, r5, r6, lr}
+ 163              		.cfi_def_cfa_offset 16
+ 164              		.cfi_offset 4, -16
+ 165              		.cfi_offset 5, -12
+ 166              		.cfi_offset 6, -8
+ 167              		.cfi_offset 14, -4
+ 168 0002 C2B0     		sub	sp, sp, #264
+ 169              		.cfi_def_cfa_offset 280
+  72:main.c        ****     CyGlobalIntEnable; /* Enable global interrupts. */
+ 170              		.loc 1 72 0
+ 171              		.syntax unified
+ 172              	@ 72 "main.c" 1
+ 173 0004 62B6     		CPSIE   i
+ 174              	@ 0 "" 2
+  73:main.c        ****     ADC_Start();
+ 175              		.loc 1 73 0
+ 176              		.thumb
+ 177              		.syntax unified
+ 178 0006 FFF7FEFF 		bl	ADC_Start
+ 179              	.LVL2:
+  74:main.c        ****     ADC_StartConvert();
+ 180              		.loc 1 74 0
+ 181 000a FFF7FEFF 		bl	ADC_StartConvert
+ 182              	.LVL3:
+  75:main.c        ****     ADC_SAR_Start();
+ 183              		.loc 1 75 0
+ 184 000e FFF7FEFF 		bl	ADC_SAR_Start
+ 185              	.LVL4:
+  76:main.c        ****     ADC_SAR_StartConvert();
+ 186              		.loc 1 76 0
+ 187 0012 FFF7FEFF 		bl	ADC_SAR_StartConvert
+ 188              	.LVL5:
+  77:main.c        ****     ADC_SAR_1_Start();
+ 189              		.loc 1 77 0
+ 190 0016 FFF7FEFF 		bl	ADC_SAR_1_Start
+ 191              	.LVL6:
+  78:main.c        ****     ADC_SAR_1_StartConvert();
+ 192              		.loc 1 78 0
+ 193 001a FFF7FEFF 		bl	ADC_SAR_1_StartConvert
+ 194              	.LVL7:
+  79:main.c        ****     
+  80:main.c        ****     isr_StartEx(end);
+ 195              		.loc 1 80 0
+ 196 001e 9C48     		ldr	r0, .L38
+ 197 0020 FFF7FEFF 		bl	isr_StartEx
+ 198              	.LVL8:
+  81:main.c        ****     isr_1_StartEx(end1);
+ 199              		.loc 1 81 0
+ 200 0024 9B48     		ldr	r0, .L38+4
+ 201 0026 FFF7FEFF 		bl	isr_1_StartEx
+ 202              	.LVL9:
+  82:main.c        ****     Onems_StartEx(time);
+ 203              		.loc 1 82 0
+ARM GAS  C:\Users\ariky\AppData\Local\Temp\ccEDxqgb.s 			page 6
+
+
+ 204 002a 9B48     		ldr	r0, .L38+8
+ 205 002c FFF7FEFF 		bl	Onems_StartEx
+ 206              	.LVL10:
+  83:main.c        ****     
+  84:main.c        ****     LCD_Start();
+ 207              		.loc 1 84 0
+ 208 0030 FFF7FEFF 		bl	LCD_Start
+ 209              	.LVL11:
+  85:main.c        ****     Timer_Start();
+ 210              		.loc 1 85 0
+ 211 0034 FFF7FEFF 		bl	Timer_Start
+ 212              	.LVL12:
+  86:main.c        ****     AMux_Init();
+ 213              		.loc 1 86 0
+ 214 0038 FFF7FEFF 		bl	AMux_Start
+ 215              	.LVL13:
+  87:main.c        ****     
+  88:main.c        ****     uint8 src1RAM1[BUFFER_SIZE];
+  89:main.c        ****     uint8 src1RAM2[BUFFER_SIZE];
+  90:main.c        ****     uint8 src2RAM1[BUFFER_SIZE];
+  91:main.c        ****     uint8 src2RAM2[BUFFER_SIZE];
+  92:main.c        ****     int i=0;
+  93:main.c        ****     int potFlag=TRUE;
+  94:main.c        ****     //clear the arrays with 0's
+  95:main.c        ****     for (i = 0; i < RAM_LENGTH; i++) {
+ 216              		.loc 1 95 0
+ 217 003c 0023     		movs	r3, #0
+ 218 003e 0BE0     		b	.L16
+ 219              	.LVL14:
+ 220              	.L17:
+  96:main.c        ****         src1RAM1[i] = 0;
+ 221              		.loc 1 96 0 discriminator 3
+ 222 0040 42AA     		add	r2, sp, #264
+ 223 0042 D118     		adds	r1, r2, r3
+ 224 0044 0022     		movs	r2, #0
+ 225 0046 01F8402C 		strb	r2, [r1, #-64]
+  97:main.c        ****         src1RAM2[i] = 0;
+ 226              		.loc 1 97 0 discriminator 3
+ 227 004a 01F8802C 		strb	r2, [r1, #-128]
+  98:main.c        ****         src2RAM1[i] = 0;
+ 228              		.loc 1 98 0 discriminator 3
+ 229 004e 01F8C02C 		strb	r2, [r1, #-192]
+  99:main.c        ****         src2RAM2[i] = 0;
+ 230              		.loc 1 99 0 discriminator 3
+ 231 0052 02A9     		add	r1, sp, #8
+ 232 0054 CA54     		strb	r2, [r1, r3]
+  95:main.c        ****         src1RAM1[i] = 0;
+ 233              		.loc 1 95 0 discriminator 3
+ 234 0056 0133     		adds	r3, r3, #1
+ 235              	.LVL15:
+ 236              	.L16:
+  95:main.c        ****         src1RAM1[i] = 0;
+ 237              		.loc 1 95 0 is_stmt 0 discriminator 1
+ 238 0058 3F2B     		cmp	r3, #63
+ 239 005a F1DD     		ble	.L17
+ 100:main.c        ****     }
+ 101:main.c        **** 
+ARM GAS  C:\Users\ariky\AppData\Local\Temp\ccEDxqgb.s 			page 7
+
+
+ 102:main.c        ****     /* Defines for DMA */
+ 103:main.c        ****     #define DMA_BYTES_PER_BURST 1
+ 104:main.c        ****     #define DMA_REQUEST_PER_BURST 1
+ 105:main.c        ****     #define DMA_SRC_BASE (CYDEV_PERIPH_BASE)
+ 106:main.c        ****     #define DMA_DST_BASE (CYDEV_SRAM_BASE)
+ 107:main.c        **** 
+ 108:main.c        ****     /* Variable declarations for DMA */
+ 109:main.c        ****     /* Move these variable declarations to the top of the function */
+ 110:main.c        ****     uint8 DMA_Chan;
+ 111:main.c        ****     uint8 DMA_TD[2];
+ 112:main.c        **** 
+ 113:main.c        ****     /* DMA Configuration for DMA */
+ 114:main.c        ****     DMA_Chan = DMA_DmaInitialize(DMA_BYTES_PER_BURST, DMA_REQUEST_PER_BURST, 
+ 240              		.loc 1 114 0 is_stmt 1
+ 241 005c 41F6FF73 		movw	r3, #8191
+ 242              	.LVL16:
+ 243 0060 4FF48042 		mov	r2, #16384
+ 244 0064 0121     		movs	r1, #1
+ 245 0066 0846     		mov	r0, r1
+ 246 0068 FFF7FEFF 		bl	DMA_DmaInitialize
+ 247              	.LVL17:
+ 248 006c 0646     		mov	r6, r0
+ 249              	.LVL18:
+ 115:main.c        ****         HI16(DMA_SRC_BASE), HI16(DMA_DST_BASE));
+ 116:main.c        **** 
+ 117:main.c        ****     DMA_TD[0] = CyDmaTdAllocate();
+ 250              		.loc 1 117 0
+ 251 006e FFF7FEFF 		bl	CyDmaTdAllocate
+ 252              	.LVL19:
+ 253 0072 0446     		mov	r4, r0
+ 118:main.c        ****     DMA_TD[1] = CyDmaTdAllocate();
+ 254              		.loc 1 118 0
+ 255 0074 FFF7FEFF 		bl	CyDmaTdAllocate
+ 256              	.LVL20:
+ 257 0078 0546     		mov	r5, r0
+ 119:main.c        ****     
+ 120:main.c        ****     CyDmaTdSetConfiguration(DMA_TD[0], RAM_LENGTH, DMA_TD[1], DMA__TD_TERMOUT_EN  | CY_DMA_TD_INC_D
+ 258              		.loc 1 120 0
+ 259 007a 0623     		movs	r3, #6
+ 260 007c 0246     		mov	r2, r0
+ 261 007e 4021     		movs	r1, #64
+ 262 0080 2046     		mov	r0, r4
+ 263 0082 FFF7FEFF 		bl	CyDmaTdSetConfiguration
+ 264              	.LVL21:
+ 121:main.c        ****     CyDmaTdSetConfiguration(DMA_TD[1], RAM_LENGTH, DMA_TD[0], DMA__TD_TERMOUT_EN  | CY_DMA_TD_INC_D
+ 265              		.loc 1 121 0
+ 266 0086 0623     		movs	r3, #6
+ 267 0088 2246     		mov	r2, r4
+ 268 008a 4021     		movs	r1, #64
+ 269 008c 2846     		mov	r0, r5
+ 270 008e FFF7FEFF 		bl	CyDmaTdSetConfiguration
+ 271              	.LVL22:
+ 122:main.c        ****     
+ 123:main.c        ****     CyDmaTdSetAddress(DMA_TD[0], LO16((uint32)ADC_SAR_SAR_WRK0_PTR), LO16((uint32)src1RAM1));
+ 272              		.loc 1 123 0
+ 273 0092 32AA     		add	r2, sp, #200
+ 274 0094 92B2     		uxth	r2, r2
+ARM GAS  C:\Users\ariky\AppData\Local\Temp\ccEDxqgb.s 			page 8
+
+
+ 275 0096 45F6A031 		movw	r1, #23456
+ 276 009a 2046     		mov	r0, r4
+ 277 009c FFF7FEFF 		bl	CyDmaTdSetAddress
+ 278              	.LVL23:
+ 124:main.c        ****     CyDmaTdSetAddress(DMA_TD[1], LO16((uint32)ADC_SAR_SAR_WRK0_PTR), LO16((uint32)src1RAM2));
+ 279              		.loc 1 124 0
+ 280 00a0 22AA     		add	r2, sp, #136
+ 281 00a2 92B2     		uxth	r2, r2
+ 282 00a4 45F6A031 		movw	r1, #23456
+ 283 00a8 2846     		mov	r0, r5
+ 284 00aa FFF7FEFF 		bl	CyDmaTdSetAddress
+ 285              	.LVL24:
+ 125:main.c        ****     
+ 126:main.c        ****     CyDmaChSetInitialTd(DMA_Chan, DMA_TD[0]);
+ 286              		.loc 1 126 0
+ 287 00ae 2146     		mov	r1, r4
+ 288 00b0 3046     		mov	r0, r6
+ 289 00b2 FFF7FEFF 		bl	CyDmaChSetInitialTd
+ 290              	.LVL25:
+ 127:main.c        ****     CyDmaChEnable(DMA_Chan, 1);
+ 291              		.loc 1 127 0
+ 292 00b6 0121     		movs	r1, #1
+ 293 00b8 3046     		mov	r0, r6
+ 294 00ba FFF7FEFF 		bl	CyDmaChEnable
+ 295              	.LVL26:
+ 128:main.c        **** 
+ 129:main.c        ****     /* Defines for DMA_1 */
+ 130:main.c        ****     #define DMA_1_BYTES_PER_BURST 1
+ 131:main.c        ****     #define DMA_1_REQUEST_PER_BURST 1
+ 132:main.c        ****     #define DMA_1_SRC_BASE (CYDEV_PERIPH_BASE)
+ 133:main.c        ****     #define DMA_1_DST_BASE (CYDEV_SRAM_BASE)
+ 134:main.c        **** 
+ 135:main.c        ****     /* Variable declarations for DMA_1 */
+ 136:main.c        ****     /* Move these variable declarations to the top of the function */
+ 137:main.c        ****     uint8 DMA_1_Chan;
+ 138:main.c        ****     uint8 DMA_1_TD[2];
+ 139:main.c        **** 
+ 140:main.c        ****     /* DMA Configuration for DMA_1 */
+ 141:main.c        ****     DMA_1_Chan = DMA_1_DmaInitialize(DMA_1_BYTES_PER_BURST, DMA_1_REQUEST_PER_BURST, 
+ 296              		.loc 1 141 0
+ 297 00be 41F6FF73 		movw	r3, #8191
+ 298 00c2 4FF48042 		mov	r2, #16384
+ 299 00c6 0121     		movs	r1, #1
+ 300 00c8 0846     		mov	r0, r1
+ 301 00ca FFF7FEFF 		bl	DMA_1_DmaInitialize
+ 302              	.LVL27:
+ 303 00ce 0646     		mov	r6, r0
+ 304              	.LVL28:
+ 142:main.c        ****     HI16(DMA_1_SRC_BASE), HI16(DMA_1_DST_BASE));
+ 143:main.c        ****     
+ 144:main.c        ****     DMA_1_TD[0] = CyDmaTdAllocate();
+ 305              		.loc 1 144 0
+ 306 00d0 FFF7FEFF 		bl	CyDmaTdAllocate
+ 307              	.LVL29:
+ 308 00d4 0446     		mov	r4, r0
+ 145:main.c        ****     DMA_1_TD[1] = CyDmaTdAllocate();
+ 309              		.loc 1 145 0
+ARM GAS  C:\Users\ariky\AppData\Local\Temp\ccEDxqgb.s 			page 9
+
+
+ 310 00d6 FFF7FEFF 		bl	CyDmaTdAllocate
+ 311              	.LVL30:
+ 312 00da 0546     		mov	r5, r0
+ 146:main.c        ****     
+ 147:main.c        ****     CyDmaTdSetConfiguration(DMA_1_TD[0], RAM_LENGTH, DMA_1_TD[1], DMA_1__TD_TERMOUT_EN | CY_DMA_TD_
+ 313              		.loc 1 147 0
+ 314 00dc 0623     		movs	r3, #6
+ 315 00de 0246     		mov	r2, r0
+ 316 00e0 4021     		movs	r1, #64
+ 317 00e2 2046     		mov	r0, r4
+ 318 00e4 FFF7FEFF 		bl	CyDmaTdSetConfiguration
+ 319              	.LVL31:
+ 148:main.c        ****     CyDmaTdSetConfiguration(DMA_1_TD[1], RAM_LENGTH, DMA_1_TD[0], DMA_1__TD_TERMOUT_EN | CY_DMA_TD_
+ 320              		.loc 1 148 0
+ 321 00e8 0623     		movs	r3, #6
+ 322 00ea 2246     		mov	r2, r4
+ 323 00ec 4021     		movs	r1, #64
+ 324 00ee 2846     		mov	r0, r5
+ 325 00f0 FFF7FEFF 		bl	CyDmaTdSetConfiguration
+ 326              	.LVL32:
+ 149:main.c        ****     
+ 150:main.c        ****     CyDmaTdSetAddress(DMA_1_TD[0], LO16((uint32)ADC_SAR_1_SAR_WRK0_PTR), LO16((uint32)src2RAM1));
+ 327              		.loc 1 150 0
+ 328 00f4 12AA     		add	r2, sp, #72
+ 329 00f6 92B2     		uxth	r2, r2
+ 330 00f8 45F6A231 		movw	r1, #23458
+ 331 00fc 2046     		mov	r0, r4
+ 332 00fe FFF7FEFF 		bl	CyDmaTdSetAddress
+ 333              	.LVL33:
+ 151:main.c        ****     CyDmaTdSetAddress(DMA_1_TD[1], LO16((uint32)ADC_SAR_1_SAR_WRK0_PTR), LO16((uint32)src2RAM2));
+ 334              		.loc 1 151 0
+ 335 0102 02AA     		add	r2, sp, #8
+ 336 0104 92B2     		uxth	r2, r2
+ 337 0106 45F6A231 		movw	r1, #23458
+ 338 010a 2846     		mov	r0, r5
+ 339 010c FFF7FEFF 		bl	CyDmaTdSetAddress
+ 340              	.LVL34:
+ 152:main.c        ****     CyDmaChSetInitialTd(DMA_1_Chan, DMA_1_TD[0]);
+ 341              		.loc 1 152 0
+ 342 0110 2146     		mov	r1, r4
+ 343 0112 3046     		mov	r0, r6
+ 344 0114 FFF7FEFF 		bl	CyDmaChSetInitialTd
+ 345              	.LVL35:
+ 153:main.c        ****     CyDmaChEnable(DMA_1_Chan, 1);
+ 346              		.loc 1 153 0
+ 347 0118 0121     		movs	r1, #1
+ 348 011a 3046     		mov	r0, r6
+ 349 011c FFF7FEFF 		bl	CyDmaChEnable
+ 350              	.LVL36:
+ 154:main.c        **** 
+ 155:main.c        ****     
+ 156:main.c        ****     /* Start USBFS operation with 5V operation. */
+ 157:main.c        ****     USBFS_Start(USBFS_DEVICE, USBFS_5V_OPERATION);
+ 351              		.loc 1 157 0
+ 352 0120 0121     		movs	r1, #1
+ 353 0122 0020     		movs	r0, #0
+ 354 0124 FFF7FEFF 		bl	USBFS_Start
+ARM GAS  C:\Users\ariky\AppData\Local\Temp\ccEDxqgb.s 			page 10
+
+
+ 355              	.LVL37:
+ 356              	.L18:
+ 158:main.c        **** 
+ 159:main.c        ****     /* Wait until device is enumerated by host. */
+ 160:main.c        ****     while (0u == USBFS_GetConfiguration())
+ 357              		.loc 1 160 0 discriminator 1
+ 358 0128 FFF7FEFF 		bl	USBFS_GetConfiguration
+ 359              	.LVL38:
+ 360 012c 0028     		cmp	r0, #0
+ 361 012e FBD0     		beq	.L18
+ 161:main.c        ****     {
+ 162:main.c        ****     }
+ 163:main.c        ****     
+ 164:main.c        ****     /* Enable OUT endpoint to receive data from host. */
+ 165:main.c        ****     USBFS_EnableOutEP(OUT_EP_NUM);
+ 362              		.loc 1 165 0
+ 363 0130 0320     		movs	r0, #3
+ 364 0132 FFF7FEFF 		bl	USBFS_EnableOutEP
+ 365              	.LVL39:
+ 166:main.c        ****     uint8 read_buffer[RD_BUFFER_SIZE] = {0};
+ 366              		.loc 1 166 0
+ 367 0136 0023     		movs	r3, #0
+ 368 0138 ADF80430 		strh	r3, [sp, #4]	@ movhi
+ 167:main.c        ****     uint8 write_buffer[WR_BUFFER_SIZE] = {0};
+ 369              		.loc 1 167 0
+ 370 013c 8DF80030 		strb	r3, [sp]
+ 371              	.LVL40:
+ 168:main.c        ****     uint8 readbyteCount = 0u;
+ 169:main.c        ****     
+ 170:main.c        ****     uint8 command_reg = 0; // Command register to capture writes from I2C
+ 171:main.c        **** 
+ 172:main.c        ****     // Set up slave write data buffer
+ 173:main.c        ****     I2CS_SlaveInitWriteBuf((uint8 *) write_buffer, WR_BUFFER_SIZE);   
+ 372              		.loc 1 173 0
+ 373 0140 0121     		movs	r1, #1
+ 374 0142 6846     		mov	r0, sp
+ 375 0144 FFF7FEFF 		bl	I2CS_SlaveInitWriteBuf
+ 376              	.LVL41:
+ 174:main.c        ****     // Set up slave read data buffer
+ 175:main.c        ****     I2CS_SlaveInitReadBuf((uint8 *) read_buffer, RD_BUFFER_SIZE);
+ 377              		.loc 1 175 0
+ 378 0148 0221     		movs	r1, #2
+ 379 014a 01A8     		add	r0, sp, #4
+ 380 014c FFF7FEFF 		bl	I2CS_SlaveInitReadBuf
+ 381              	.LVL42:
+ 176:main.c        ****     // Start I2C slave component
+ 177:main.c        ****     I2CS_Start();
+ 382              		.loc 1 177 0
+ 383 0150 FFF7FEFF 		bl	I2CS_Start
+ 384              	.LVL43:
+ 178:main.c        ****     if(I2CS_SlaveStatus() & I2CS_SSTAT_WR_CMPLT)
+ 385              		.loc 1 178 0
+ 386 0154 FFF7FEFF 		bl	I2CS_SlaveStatus
+ 387              	.LVL44:
+ 388 0158 10F0100F 		tst	r0, #16
+ 389 015c 0AD0     		beq	.L19
+ 179:main.c        ****     {
+ARM GAS  C:\Users\ariky\AppData\Local\Temp\ccEDxqgb.s 			page 11
+
+
+ 180:main.c        ****         // Copy command into command register
+ 181:main.c        ****         command_reg = write_buffer[0]; //Pi to PSoC
+ 390              		.loc 1 181 0
+ 391 015e 9DF80000 		ldrb	r0, [sp]	@ zero_extendqisi2
+ 392              	.LVL45:
+ 182:main.c        ****         //divide the DMA clock to the specified sample rate
+ 183:main.c        ****         Clock_2_SetDividerValue(command_reg);
+ 393              		.loc 1 183 0
+ 394 0162 0138     		subs	r0, r0, #1
+ 395              	.LVL46:
+ 396 0164 0121     		movs	r1, #1
+ 397 0166 80B2     		uxth	r0, r0
+ 398              	.LVL47:
+ 399 0168 FFF7FEFF 		bl	Clock_2_SetDividerRegister
+ 400              	.LVL48:
+ 184:main.c        ****         //LCD_Position(0u, 10u);
+ 185:main.c        ****         //LCD_PrintNumber(command_reg);
+ 186:main.c        ****         // Clear status
+ 187:main.c        ****         I2CS_SlaveClearWriteStatus();
+ 401              		.loc 1 187 0
+ 402 016c FFF7FEFF 		bl	I2CS_SlaveClearWriteStatus
+ 403              	.LVL49:
+ 188:main.c        ****         I2CS_SlaveClearWriteBuf();
+ 404              		.loc 1 188 0
+ 405 0170 FFF7FEFF 		bl	I2CS_SlaveClearWriteBuf
+ 406              	.LVL50:
+ 407              	.L19:
+  95:main.c        ****         src1RAM1[i] = 0;
+ 408              		.loc 1 95 0
+ 409 0174 0124     		movs	r4, #1
+ 410              	.LVL51:
+ 411              	.L32:
+ 189:main.c        ****         
+ 190:main.c        ****     } 
+ 191:main.c        ****     for(;;)
+ 192:main.c        ****     {
+ 193:main.c        ****      /* Check if the command register has been written */
+ 194:main.c        ****   
+ 195:main.c        ****     
+ 196:main.c        ****         /* Check if the slave buffer has been read */
+ 197:main.c        ****      if(I2CS_SlaveStatus() & I2CS_SSTAT_RD_CMPLT)
+ 412              		.loc 1 197 0
+ 413 0176 FFF7FEFF 		bl	I2CS_SlaveStatus
+ 414              	.LVL52:
+ 415 017a 10F0010F 		tst	r0, #1
+ 416 017e 2DD0     		beq	.L20
+ 198:main.c        ****         {
+ 199:main.c        ****          readbyteCount = I2CS_SlaveGetReadBufSize();
+ 417              		.loc 1 199 0
+ 418 0180 FFF7FEFF 		bl	I2CS_SlaveGetReadBufSize
+ 419              	.LVL53:
+ 200:main.c        ****          /* If both bytes of the read buffer have been read */
+ 201:main.c        ****           if(readbyteCount == RD_BUFFER_SIZE) 
+ 420              		.loc 1 201 0
+ 421 0184 0228     		cmp	r0, #2
+ 422 0186 29D1     		bne	.L20
+ 202:main.c        ****             {
+ARM GAS  C:\Users\ariky\AppData\Local\Temp\ccEDxqgb.s 			page 12
+
+
+ 203:main.c        ****              // Clear read status
+ 204:main.c        ****               I2CS_SlaveClearReadStatus();
+ 423              		.loc 1 204 0
+ 424 0188 FFF7FEFF 		bl	I2CS_SlaveClearReadStatus
+ 425              	.LVL54:
+ 205:main.c        ****               I2CS_SlaveClearReadBuf();
+ 426              		.loc 1 205 0
+ 427 018c FFF7FEFF 		bl	I2CS_SlaveClearReadBuf
+ 428              	.LVL55:
+ 206:main.c        **** 
+ 207:main.c        ****               if (timeFlag){
+ 429              		.loc 1 207 0
+ 430 0190 424B     		ldr	r3, .L38+12
+ 431 0192 1B69     		ldr	r3, [r3, #16]
+ 432 0194 13B3     		cbz	r3, .L20
+ 208:main.c        ****                 if (potFlag){
+ 433              		.loc 1 208 0
+ 434 0196 7CB1     		cbz	r4, .L21
+ 435              	.LBB2:
+ 209:main.c        ****                     AMux_Select(0x0);//switch to pin0.3 to grab 
+ 436              		.loc 1 209 0
+ 437 0198 0020     		movs	r0, #0
+ 438 019a FFF7FEFF 		bl	AMux_Select
+ 439              	.LVL56:
+ 210:main.c        ****                     int adc1=ADC_GetResult16();
+ 440              		.loc 1 210 0
+ 441 019e FFF7FEFF 		bl	ADC_GetResult16
+ 442              	.LVL57:
+ 443 01a2 0346     		mov	r3, r0
+ 444              	.LVL58:
+ 211:main.c        ****                     if (adc1<0) adc1=0; 
+ 445              		.loc 1 211 0
+ 446 01a4 0028     		cmp	r0, #0
+ 447 01a6 00DA     		bge	.L22
+ 448 01a8 0023     		movs	r3, #0
+ 449              	.L22:
+ 450              	.LVL59:
+ 212:main.c        ****                     if (adc1>254) adc1=255;
+ 451              		.loc 1 212 0
+ 452 01aa FE2B     		cmp	r3, #254
+ 453 01ac 00DD     		ble	.L23
+ 454 01ae FF23     		movs	r3, #255
+ 455              	.LVL60:
+ 456              	.L23:
+ 213:main.c        ****                     read_buffer[0] = adc1;
+ 457              		.loc 1 213 0
+ 458 01b0 8DF80430 		strb	r3, [sp, #4]
+ 459              	.LVL61:
+ 214:main.c        ****                     potFlag=FALSE;
+ 460              		.loc 1 214 0
+ 461 01b4 0024     		movs	r4, #0
+ 462              	.LBE2:
+ 463 01b6 0EE0     		b	.L24
+ 464              	.LVL62:
+ 465              	.L21:
+ 466              	.LBB3:
+ 215:main.c        ****                 }
+ARM GAS  C:\Users\ariky\AppData\Local\Temp\ccEDxqgb.s 			page 13
+
+
+ 216:main.c        ****                 else{
+ 217:main.c        ****                     AMux_Select(0x1);//switch to pin 0.4 to grab value
+ 467              		.loc 1 217 0
+ 468 01b8 0120     		movs	r0, #1
+ 469 01ba FFF7FEFF 		bl	AMux_Select
+ 470              	.LVL63:
+ 218:main.c        ****                     int adc2=ADC_GetResult16();
+ 471              		.loc 1 218 0
+ 472 01be FFF7FEFF 		bl	ADC_GetResult16
+ 473              	.LVL64:
+ 474 01c2 0346     		mov	r3, r0
+ 475              	.LVL65:
+ 219:main.c        ****                     if (adc2<0) adc2=0; 
+ 476              		.loc 1 219 0
+ 477 01c4 0028     		cmp	r0, #0
+ 478 01c6 00DA     		bge	.L25
+ 479 01c8 0023     		movs	r3, #0
+ 480              	.L25:
+ 481              	.LVL66:
+ 220:main.c        ****                     if (adc2>254) adc2=255;
+ 482              		.loc 1 220 0
+ 483 01ca FE2B     		cmp	r3, #254
+ 484 01cc 00DD     		ble	.L26
+ 485 01ce FF23     		movs	r3, #255
+ 486              	.LVL67:
+ 487              	.L26:
+ 221:main.c        ****                     read_buffer[1] = adc2;
+ 488              		.loc 1 221 0
+ 489 01d0 8DF80530 		strb	r3, [sp, #5]
+ 490              	.LVL68:
+ 222:main.c        ****                     potFlag=TRUE;
+ 491              		.loc 1 222 0
+ 492 01d4 0124     		movs	r4, #1
+ 493              	.LVL69:
+ 494              	.L24:
+ 495              	.LBE3:
+ 223:main.c        ****                 }
+ 224:main.c        ****                 timeFlag=FALSE; //reset flag for next isr
+ 496              		.loc 1 224 0
+ 497 01d6 0022     		movs	r2, #0
+ 498 01d8 304B     		ldr	r3, .L38+12
+ 499 01da 1A61     		str	r2, [r3, #16]
+ 500              	.L20:
+ 225:main.c        ****               }
+ 226:main.c        **** 
+ 227:main.c        ****            }
+ 228:main.c        ****         }
+ 229:main.c        ****         //TRANSMISSION SIDE
+ 230:main.c        ****         
+ 231:main.c        ****         /* Trigger DMA to copy data into IN endpoint buffer.
+ 232:main.c        ****         * After data has been copied, IN endpoint is ready to be read by the
+ 233:main.c        ****         * host.
+ 234:main.c        ****         */
+ 235:main.c        ****         
+ 236:main.c        ****         if (src1Flag1){ //fill in the desired array based on the ping pong buffer of DMA
+ 501              		.loc 1 236 0
+ 502 01dc 2F4B     		ldr	r3, .L38+12
+ARM GAS  C:\Users\ariky\AppData\Local\Temp\ccEDxqgb.s 			page 14
+
+
+ 503 01de 1B68     		ldr	r3, [r3]
+ 504 01e0 63B1     		cbz	r3, .L27
+ 237:main.c        ****             if (USBFS_IN_BUFFER_EMPTY == USBFS_GetEPState(IN_EP_NUM))
+ 505              		.loc 1 237 0
+ 506 01e2 0120     		movs	r0, #1
+ 507 01e4 FFF7FEFF 		bl	USBFS_GetEPState
+ 508              	.LVL70:
+ 509 01e8 0128     		cmp	r0, #1
+ 510 01ea 16D1     		bne	.L28
+ 238:main.c        ****             {
+ 239:main.c        ****                 USBFS_LoadInEP(IN_EP_NUM, src1RAM1, RAM_LENGTH);
+ 511              		.loc 1 239 0
+ 512 01ec 4022     		movs	r2, #64
+ 513 01ee 32A9     		add	r1, sp, #200
+ 514 01f0 FFF7FEFF 		bl	USBFS_LoadInEP
+ 515              	.LVL71:
+ 240:main.c        ****                 src1Flag1=FALSE;
+ 516              		.loc 1 240 0
+ 517 01f4 0022     		movs	r2, #0
+ 518 01f6 294B     		ldr	r3, .L38+12
+ 519 01f8 1A60     		str	r2, [r3]
+ 520 01fa 0EE0     		b	.L28
+ 521              	.L27:
+ 241:main.c        ****             }
+ 242:main.c        ****         }
+ 243:main.c        ****         else if (src1Flag2){
+ 522              		.loc 1 243 0
+ 523 01fc 274B     		ldr	r3, .L38+12
+ 524 01fe 5B68     		ldr	r3, [r3, #4]
+ 525 0200 5BB1     		cbz	r3, .L28
+ 244:main.c        ****             if (USBFS_IN_BUFFER_EMPTY == USBFS_GetEPState(IN_EP_NUM))
+ 526              		.loc 1 244 0
+ 527 0202 0120     		movs	r0, #1
+ 528 0204 FFF7FEFF 		bl	USBFS_GetEPState
+ 529              	.LVL72:
+ 530 0208 0128     		cmp	r0, #1
+ 531 020a 06D1     		bne	.L28
+ 245:main.c        ****             {
+ 246:main.c        ****                 USBFS_LoadInEP(IN_EP_NUM, src1RAM2, RAM_LENGTH);
+ 532              		.loc 1 246 0
+ 533 020c 4022     		movs	r2, #64
+ 534 020e 22A9     		add	r1, sp, #136
+ 535 0210 FFF7FEFF 		bl	USBFS_LoadInEP
+ 536              	.LVL73:
+ 247:main.c        ****                 src1Flag2=FALSE;
+ 537              		.loc 1 247 0
+ 538 0214 0022     		movs	r2, #0
+ 539 0216 214B     		ldr	r3, .L38+12
+ 540 0218 5A60     		str	r2, [r3, #4]
+ 541              	.L28:
+ 248:main.c        ****             }
+ 249:main.c        ****         }
+ 250:main.c        ****         if (src2Flag1){
+ 542              		.loc 1 250 0
+ 543 021a 204B     		ldr	r3, .L38+12
+ 544 021c 9B68     		ldr	r3, [r3, #8]
+ 545 021e 6BB1     		cbz	r3, .L29
+ARM GAS  C:\Users\ariky\AppData\Local\Temp\ccEDxqgb.s 			page 15
+
+
+ 251:main.c        ****             if (USBFS_IN_BUFFER_EMPTY == USBFS_GetEPState(IN2_EP_NUM))
+ 546              		.loc 1 251 0
+ 547 0220 0220     		movs	r0, #2
+ 548 0222 FFF7FEFF 		bl	USBFS_GetEPState
+ 549              	.LVL74:
+ 550 0226 0128     		cmp	r0, #1
+ 551 0228 18D1     		bne	.L30
+ 252:main.c        ****             {            
+ 253:main.c        ****                 USBFS_LoadInEP(IN2_EP_NUM, src2RAM1, RAM_LENGTH);
+ 552              		.loc 1 253 0
+ 553 022a 4022     		movs	r2, #64
+ 554 022c 12A9     		add	r1, sp, #72
+ 555 022e 0220     		movs	r0, #2
+ 556 0230 FFF7FEFF 		bl	USBFS_LoadInEP
+ 557              	.LVL75:
+ 254:main.c        ****                 src2Flag1=FALSE;
+ 558              		.loc 1 254 0
+ 559 0234 0022     		movs	r2, #0
+ 560 0236 194B     		ldr	r3, .L38+12
+ 561 0238 9A60     		str	r2, [r3, #8]
+ 562 023a 0FE0     		b	.L30
+ 563              	.L29:
+ 255:main.c        ****             }
+ 256:main.c        **** 
+ 257:main.c        ****         }
+ 258:main.c        ****         else if (src2Flag2){
+ 564              		.loc 1 258 0
+ 565 023c 174B     		ldr	r3, .L38+12
+ 566 023e DB68     		ldr	r3, [r3, #12]
+ 567 0240 63B1     		cbz	r3, .L30
+ 259:main.c        ****             if (USBFS_IN_BUFFER_EMPTY == USBFS_GetEPState(IN2_EP_NUM))
+ 568              		.loc 1 259 0
+ 569 0242 0220     		movs	r0, #2
+ 570 0244 FFF7FEFF 		bl	USBFS_GetEPState
+ 571              	.LVL76:
+ 572 0248 0128     		cmp	r0, #1
+ 573 024a 07D1     		bne	.L30
+ 260:main.c        ****             {            
+ 261:main.c        ****                 USBFS_LoadInEP(IN2_EP_NUM, src2RAM2, RAM_LENGTH);
+ 574              		.loc 1 261 0
+ 575 024c 4022     		movs	r2, #64
+ 576 024e 02A9     		add	r1, sp, #8
+ 577 0250 0220     		movs	r0, #2
+ 578 0252 FFF7FEFF 		bl	USBFS_LoadInEP
+ 579              	.LVL77:
+ 262:main.c        ****                 src2Flag2=FALSE;
+ 580              		.loc 1 262 0
+ 581 0256 0022     		movs	r2, #0
+ 582 0258 104B     		ldr	r3, .L38+12
+ 583 025a DA60     		str	r2, [r3, #12]
+ 584              	.L30:
+ 263:main.c        ****             }
+ 264:main.c        **** 
+ 265:main.c        ****         }
+ 266:main.c        ****         
+ 267:main.c        ****         //wait till the Pi recieves the byte
+ 268:main.c        ****         
+ARM GAS  C:\Users\ariky\AppData\Local\Temp\ccEDxqgb.s 			page 16
+
+
+ 269:main.c        ****         /* Check if configuration is changed. */
+ 270:main.c        ****         if (0u != USBFS_IsConfigurationChanged())
+ 585              		.loc 1 270 0
+ 586 025c FFF7FEFF 		bl	USBFS_IsConfigurationChanged
+ 587              	.LVL78:
+ 588 0260 28B1     		cbz	r0, .L31
+ 271:main.c        ****         {
+ 272:main.c        ****             /* Re-enable endpoint when device is configured. */
+ 273:main.c        ****             if (0u != USBFS_GetConfiguration())
+ 589              		.loc 1 273 0
+ 590 0262 FFF7FEFF 		bl	USBFS_GetConfiguration
+ 591              	.LVL79:
+ 592 0266 10B1     		cbz	r0, .L31
+ 274:main.c        ****             {
+ 275:main.c        ****                 /* Enable OUT endpoint to receive data from host. */
+ 276:main.c        ****                 USBFS_EnableOutEP(OUT_EP_NUM);
+ 593              		.loc 1 276 0
+ 594 0268 0320     		movs	r0, #3
+ 595 026a FFF7FEFF 		bl	USBFS_EnableOutEP
+ 596              	.LVL80:
+ 597              	.L31:
+ 277:main.c        ****             }
+ 278:main.c        ****         }
+ 279:main.c        ****         LCD_Position(0u, 0u);
+ 598              		.loc 1 279 0
+ 599 026e 0021     		movs	r1, #0
+ 600 0270 0846     		mov	r0, r1
+ 601 0272 FFF7FEFF 		bl	LCD_Position
+ 602              	.LVL81:
+ 280:main.c        ****         //check the destination array make sure it emptied 
+ 281:main.c        ****         LCD_PrintNumber(read_buffer[0]);
+ 603              		.loc 1 281 0
+ 604 0276 9DF80400 		ldrb	r0, [sp, #4]	@ zero_extendqisi2
+ 605 027a FFF7FEFF 		bl	LCD_PrintU32Number
+ 606              	.LVL82:
+ 282:main.c        ****         
+ 283:main.c        ****         LCD_Position(1u, 0u);
+ 607              		.loc 1 283 0
+ 608 027e 0021     		movs	r1, #0
+ 609 0280 0120     		movs	r0, #1
+ 610 0282 FFF7FEFF 		bl	LCD_Position
+ 611              	.LVL83:
+ 284:main.c        ****         //check the destination array make sure it emptied 
+ 285:main.c        ****         LCD_PrintNumber(read_buffer[1]);
+ 612              		.loc 1 285 0
+ 613 0286 9DF80500 		ldrb	r0, [sp, #5]	@ zero_extendqisi2
+ 614 028a FFF7FEFF 		bl	LCD_PrintU32Number
+ 615              	.LVL84:
+ 286:main.c        ****         
+ 287:main.c        **** 
+ 288:main.c        ****         /*
+ 289:main.c        ****         LCD_Position(0u, 10u);
+ 290:main.c        ****         //check the destination array make sure it emptied 
+ 291:main.c        ****         LCD_PrintNumber(src1RAM[0]);
+ 292:main.c        ****             
+ 293:main.c        ****         //LCD_Position(1u, 10u);
+ 294:main.c        ****         //check the source array make sure it emptied 
+ARM GAS  C:\Users\ariky\AppData\Local\Temp\ccEDxqgb.s 			page 17
+
+
+ 295:main.c        ****         LCD_PrintNumber(src2RAM[0]);
+ 296:main.c        ****         */
+ 297:main.c        ****         
+ 298:main.c        ****     }
+ 616              		.loc 1 298 0
+ 617 028e 72E7     		b	.L32
+ 618              	.L39:
+ 619              		.align	2
+ 620              	.L38:
+ 621 0290 00000000 		.word	end
+ 622 0294 00000000 		.word	end1
+ 623 0298 00000000 		.word	time
+ 624 029c 00000000 		.word	.LANCHOR1
+ 625              		.cfi_endproc
+ 626              	.LFE66:
+ 627              		.size	main, .-main
+ 628              		.comm	buffer,64,4
+ 629              		.global	timeFlag
+ 630              		.global	src2Flag2
+ 631              		.global	src2Flag1
+ 632              		.global	src1Flag2
+ 633              		.global	src1Flag1
+ 634              		.global	flag2
+ 635              		.global	flag1
+ 636              		.data
+ 637              		.align	2
+ 638              		.set	.LANCHOR0,. + 0
+ 639              		.type	flag1, %object
+ 640              		.size	flag1, 4
+ 641              	flag1:
+ 642 0000 01000000 		.word	1
+ 643              		.type	flag2, %object
+ 644              		.size	flag2, 4
+ 645              	flag2:
+ 646 0004 01000000 		.word	1
+ 647              		.bss
+ 648              		.align	2
+ 649              		.set	.LANCHOR1,. + 0
+ 650              		.type	src1Flag1, %object
+ 651              		.size	src1Flag1, 4
+ 652              	src1Flag1:
+ 653 0000 00000000 		.space	4
+ 654              		.type	src1Flag2, %object
+ 655              		.size	src1Flag2, 4
+ 656              	src1Flag2:
+ 657 0004 00000000 		.space	4
+ 658              		.type	src2Flag1, %object
+ 659              		.size	src2Flag1, 4
+ 660              	src2Flag1:
+ 661 0008 00000000 		.space	4
+ 662              		.type	src2Flag2, %object
+ 663              		.size	src2Flag2, 4
+ 664              	src2Flag2:
+ 665 000c 00000000 		.space	4
+ 666              		.type	timeFlag, %object
+ 667              		.size	timeFlag, 4
+ 668              	timeFlag:
+ARM GAS  C:\Users\ariky\AppData\Local\Temp\ccEDxqgb.s 			page 18
+
+
+ 669 0010 00000000 		.space	4
+ 670              		.text
+ 671              	.Letext0:
+ 672              		.file 2 "c:\\program files (x86)\\cypress\\psoc creator\\4.2\\psoc creator\\import\\gnu\\arm\\5.4.
+ 673              		.file 3 "c:\\program files (x86)\\cypress\\psoc creator\\4.2\\psoc creator\\import\\gnu\\arm\\5.4.
+ 674              		.file 4 "Generated_Source\\PSoC5/cytypes.h"
+ 675              		.file 5 "Generated_Source\\PSoC5/core_cm3.h"
+ 676              		.file 6 "Generated_Source\\PSoC5/LCD.h"
+ 677              		.file 7 "Generated_Source\\PSoC5/Timer.h"
+ 678              		.file 8 "Generated_Source\\PSoC5/AMux.h"
+ 679              		.file 9 "Generated_Source\\PSoC5/ADC.h"
+ 680              		.file 10 "Generated_Source\\PSoC5/ADC_SAR.h"
+ 681              		.file 11 "Generated_Source\\PSoC5/ADC_SAR_1.h"
+ 682              		.file 12 "Generated_Source\\PSoC5/isr.h"
+ 683              		.file 13 "Generated_Source\\PSoC5/isr_1.h"
+ 684              		.file 14 "Generated_Source\\PSoC5/Onems.h"
+ 685              		.file 15 "Generated_Source\\PSoC5/DMA_dma.h"
+ 686              		.file 16 "Generated_Source\\PSoC5/CyDmac.h"
+ 687              		.file 17 "Generated_Source\\PSoC5/DMA_1_dma.h"
+ 688              		.file 18 "Generated_Source\\PSoC5/USBFS.h"
+ 689              		.file 19 "Generated_Source\\PSoC5/I2CS.h"
+ 690              		.file 20 "Generated_Source\\PSoC5/Clock_2.h"
+ 691              		.section	.debug_info,"",%progbits
+ 692              	.Ldebug_info0:
+ 693 0000 81090000 		.4byte	0x981
+ 694 0004 0400     		.2byte	0x4
+ 695 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 696 000a 04       		.byte	0x4
+ 697 000b 01       		.uleb128 0x1
+ 698 000c DE040000 		.4byte	.LASF86
+ 699 0010 0C       		.byte	0xc
+ 700 0011 89030000 		.4byte	.LASF87
+ 701 0015 89040000 		.4byte	.LASF88
+ 702 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 703 001d 00000000 		.4byte	0
+ 704 0021 00000000 		.4byte	.Ldebug_line0
+ 705 0025 02       		.uleb128 0x2
+ 706 0026 01       		.byte	0x1
+ 707 0027 06       		.byte	0x6
+ 708 0028 B2020000 		.4byte	.LASF0
+ 709 002c 02       		.uleb128 0x2
+ 710 002d 01       		.byte	0x1
+ 711 002e 08       		.byte	0x8
+ 712 002f 7B020000 		.4byte	.LASF1
+ 713 0033 02       		.uleb128 0x2
+ 714 0034 02       		.byte	0x2
+ 715 0035 05       		.byte	0x5
+ 716 0036 34010000 		.4byte	.LASF2
+ 717 003a 02       		.uleb128 0x2
+ 718 003b 02       		.byte	0x2
+ 719 003c 07       		.byte	0x7
+ 720 003d FF020000 		.4byte	.LASF3
+ 721 0041 03       		.uleb128 0x3
+ 722 0042 1B040000 		.4byte	.LASF9
+ 723 0046 02       		.byte	0x2
+ 724 0047 3F       		.byte	0x3f
+ 725 0048 4C000000 		.4byte	0x4c
+ARM GAS  C:\Users\ariky\AppData\Local\Temp\ccEDxqgb.s 			page 19
+
+
+ 726 004c 02       		.uleb128 0x2
+ 727 004d 04       		.byte	0x4
+ 728 004e 05       		.byte	0x5
+ 729 004f 10020000 		.4byte	.LASF4
+ 730 0053 02       		.uleb128 0x2
+ 731 0054 04       		.byte	0x4
+ 732 0055 07       		.byte	0x7
+ 733 0056 95030000 		.4byte	.LASF5
+ 734 005a 02       		.uleb128 0x2
+ 735 005b 08       		.byte	0x8
+ 736 005c 05       		.byte	0x5
+ 737 005d CB010000 		.4byte	.LASF6
+ 738 0061 02       		.uleb128 0x2
+ 739 0062 08       		.byte	0x8
+ 740 0063 07       		.byte	0x7
+ 741 0064 BE020000 		.4byte	.LASF7
+ 742 0068 04       		.uleb128 0x4
+ 743 0069 04       		.byte	0x4
+ 744 006a 05       		.byte	0x5
+ 745 006b 696E7400 		.ascii	"int\000"
+ 746 006f 02       		.uleb128 0x2
+ 747 0070 04       		.byte	0x4
+ 748 0071 07       		.byte	0x7
+ 749 0072 D5020000 		.4byte	.LASF8
+ 750 0076 03       		.uleb128 0x3
+ 751 0077 4C030000 		.4byte	.LASF10
+ 752 007b 03       		.byte	0x3
+ 753 007c 2C       		.byte	0x2c
+ 754 007d 41000000 		.4byte	0x41
+ 755 0081 05       		.uleb128 0x5
+ 756 0082 73010000 		.4byte	.LASF11
+ 757 0086 04       		.byte	0x4
+ 758 0087 E401     		.2byte	0x1e4
+ 759 0089 2C000000 		.4byte	0x2c
+ 760 008d 05       		.uleb128 0x5
+ 761 008e 6C010000 		.4byte	.LASF12
+ 762 0092 04       		.byte	0x4
+ 763 0093 E501     		.2byte	0x1e5
+ 764 0095 3A000000 		.4byte	0x3a
+ 765 0099 05       		.uleb128 0x5
+ 766 009a 82030000 		.4byte	.LASF13
+ 767 009e 04       		.byte	0x4
+ 768 009f E601     		.2byte	0x1e6
+ 769 00a1 53000000 		.4byte	0x53
+ 770 00a5 02       		.uleb128 0x2
+ 771 00a6 04       		.byte	0x4
+ 772 00a7 04       		.byte	0x4
+ 773 00a8 B9010000 		.4byte	.LASF14
+ 774 00ac 02       		.uleb128 0x2
+ 775 00ad 08       		.byte	0x8
+ 776 00ae 04       		.byte	0x4
+ 777 00af B1030000 		.4byte	.LASF15
+ 778 00b3 02       		.uleb128 0x2
+ 779 00b4 01       		.byte	0x1
+ 780 00b5 08       		.byte	0x8
+ 781 00b6 30030000 		.4byte	.LASF16
+ 782 00ba 05       		.uleb128 0x5
+ARM GAS  C:\Users\ariky\AppData\Local\Temp\ccEDxqgb.s 			page 20
+
+
+ 783 00bb 90030000 		.4byte	.LASF17
+ 784 00bf 04       		.byte	0x4
+ 785 00c0 8E02     		.2byte	0x28e
+ 786 00c2 C6000000 		.4byte	0xc6
+ 787 00c6 06       		.uleb128 0x6
+ 788 00c7 81000000 		.4byte	0x81
+ 789 00cb 02       		.uleb128 0x2
+ 790 00cc 08       		.byte	0x8
+ 791 00cd 04       		.byte	0x4
+ 792 00ce 6F020000 		.4byte	.LASF18
+ 793 00d2 02       		.uleb128 0x2
+ 794 00d3 04       		.byte	0x4
+ 795 00d4 07       		.byte	0x7
+ 796 00d5 F0000000 		.4byte	.LASF19
+ 797 00d9 07       		.uleb128 0x7
+ 798 00da 656E6400 		.ascii	"end\000"
+ 799 00de 01       		.byte	0x1
+ 800 00df 27       		.byte	0x27
+ 801 00e0 00000000 		.4byte	.LFB63
+ 802 00e4 30000000 		.4byte	.LFE63-.LFB63
+ 803 00e8 01       		.uleb128 0x1
+ 804 00e9 9C       		.byte	0x9c
+ 805 00ea 08       		.uleb128 0x8
+ 806 00eb 10000000 		.4byte	.LASF20
+ 807 00ef 01       		.byte	0x1
+ 808 00f0 33       		.byte	0x33
+ 809 00f1 00000000 		.4byte	.LFB64
+ 810 00f5 30000000 		.4byte	.LFE64-.LFB64
+ 811 00f9 01       		.uleb128 0x1
+ 812 00fa 9C       		.byte	0x9c
+ 813 00fb 09       		.uleb128 0x9
+ 814 00fc F4020000 		.4byte	.LASF89
+ 815 0100 01       		.byte	0x1
+ 816 0101 40       		.byte	0x40
+ 817 0102 00000000 		.4byte	.LFB65
+ 818 0106 18000000 		.4byte	.LFE65-.LFB65
+ 819 010a 01       		.uleb128 0x1
+ 820 010b 9C       		.byte	0x9c
+ 821 010c 2D010000 		.4byte	0x12d
+ 822 0110 0A       		.uleb128 0xa
+ 823 0111 0C000000 		.4byte	.LVL0
+ 824 0115 BB070000 		.4byte	0x7bb
+ 825 0119 23010000 		.4byte	0x123
+ 826 011d 0B       		.uleb128 0xb
+ 827 011e 01       		.uleb128 0x1
+ 828 011f 50       		.byte	0x50
+ 829 0120 01       		.uleb128 0x1
+ 830 0121 31       		.byte	0x31
+ 831 0122 00       		.byte	0
+ 832 0123 0C       		.uleb128 0xc
+ 833 0124 10000000 		.4byte	.LVL1
+ 834 0128 C6070000 		.4byte	0x7c6
+ 835 012c 00       		.byte	0
+ 836 012d 0D       		.uleb128 0xd
+ 837 012e 1E010000 		.4byte	.LASF90
+ 838 0132 01       		.byte	0x1
+ 839 0133 46       		.byte	0x46
+ARM GAS  C:\Users\ariky\AppData\Local\Temp\ccEDxqgb.s 			page 21
+
+
+ 840 0134 68000000 		.4byte	0x68
+ 841 0138 00000000 		.4byte	.LFB66
+ 842 013c A0020000 		.4byte	.LFE66-.LFB66
+ 843 0140 01       		.uleb128 0x1
+ 844 0141 9C       		.byte	0x9c
+ 845 0142 F2060000 		.4byte	0x6f2
+ 846 0146 0E       		.uleb128 0xe
+ 847 0147 3B000000 		.4byte	.LASF21
+ 848 014b 01       		.byte	0x1
+ 849 014c 58       		.byte	0x58
+ 850 014d F2060000 		.4byte	0x6f2
+ 851 0151 03       		.uleb128 0x3
+ 852 0152 91       		.byte	0x91
+ 853 0153 B07F     		.sleb128 -80
+ 854 0155 0E       		.uleb128 0xe
+ 855 0156 44000000 		.4byte	.LASF22
+ 856 015a 01       		.byte	0x1
+ 857 015b 59       		.byte	0x59
+ 858 015c F2060000 		.4byte	0x6f2
+ 859 0160 03       		.uleb128 0x3
+ 860 0161 91       		.byte	0x91
+ 861 0162 F07E     		.sleb128 -144
+ 862 0164 0E       		.uleb128 0xe
+ 863 0165 2A020000 		.4byte	.LASF23
+ 864 0169 01       		.byte	0x1
+ 865 016a 5A       		.byte	0x5a
+ 866 016b F2060000 		.4byte	0x6f2
+ 867 016f 03       		.uleb128 0x3
+ 868 0170 91       		.byte	0x91
+ 869 0171 B07E     		.sleb128 -208
+ 870 0173 0E       		.uleb128 0xe
+ 871 0174 33020000 		.4byte	.LASF24
+ 872 0178 01       		.byte	0x1
+ 873 0179 5B       		.byte	0x5b
+ 874 017a F2060000 		.4byte	0x6f2
+ 875 017e 03       		.uleb128 0x3
+ 876 017f 91       		.byte	0x91
+ 877 0180 F07D     		.sleb128 -272
+ 878 0182 0F       		.uleb128 0xf
+ 879 0183 6900     		.ascii	"i\000"
+ 880 0185 01       		.byte	0x1
+ 881 0186 5C       		.byte	0x5c
+ 882 0187 68000000 		.4byte	0x68
+ 883 018b 00000000 		.4byte	.LLST0
+ 884 018f 10       		.uleb128 0x10
+ 885 0190 23010000 		.4byte	.LASF25
+ 886 0194 01       		.byte	0x1
+ 887 0195 5D       		.byte	0x5d
+ 888 0196 68000000 		.4byte	0x68
+ 889 019a 1F000000 		.4byte	.LLST1
+ 890 019e 10       		.uleb128 0x10
+ 891 019f FD010000 		.4byte	.LASF26
+ 892 01a3 01       		.byte	0x1
+ 893 01a4 6E       		.byte	0x6e
+ 894 01a5 81000000 		.4byte	0x81
+ 895 01a9 6C000000 		.4byte	.LLST2
+ 896 01ad 11       		.uleb128 0x11
+ARM GAS  C:\Users\ariky\AppData\Local\Temp\ccEDxqgb.s 			page 22
+
+
+ 897 01ae 3C020000 		.4byte	.LASF28
+ 898 01b2 01       		.byte	0x1
+ 899 01b3 6F       		.byte	0x6f
+ 900 01b4 02070000 		.4byte	0x702
+ 901 01b8 0E       		.uleb128 0xe
+ 902 01b9 D9010000 		.4byte	.LASF27
+ 903 01bd 01       		.byte	0x1
+ 904 01be 89       		.byte	0x89
+ 905 01bf 81000000 		.4byte	0x81
+ 906 01c3 01       		.uleb128 0x1
+ 907 01c4 56       		.byte	0x56
+ 908 01c5 11       		.uleb128 0x11
+ 909 01c6 C1000000 		.4byte	.LASF29
+ 910 01ca 01       		.byte	0x1
+ 911 01cb 8A       		.byte	0x8a
+ 912 01cc 02070000 		.4byte	0x702
+ 913 01d0 0E       		.uleb128 0xe
+ 914 01d1 71050000 		.4byte	.LASF30
+ 915 01d5 01       		.byte	0x1
+ 916 01d6 A6       		.byte	0xa6
+ 917 01d7 02070000 		.4byte	0x702
+ 918 01db 03       		.uleb128 0x3
+ 919 01dc 91       		.byte	0x91
+ 920 01dd EC7D     		.sleb128 -276
+ 921 01df 0E       		.uleb128 0xe
+ 922 01e0 25040000 		.4byte	.LASF31
+ 923 01e4 01       		.byte	0x1
+ 924 01e5 A7       		.byte	0xa7
+ 925 01e6 12070000 		.4byte	0x712
+ 926 01ea 03       		.uleb128 0x3
+ 927 01eb 91       		.byte	0x91
+ 928 01ec E87D     		.sleb128 -280
+ 929 01ee 10       		.uleb128 0x10
+ 930 01ef 3E010000 		.4byte	.LASF32
+ 931 01f3 01       		.byte	0x1
+ 932 01f4 A8       		.byte	0xa8
+ 933 01f5 81000000 		.4byte	0x81
+ 934 01f9 7F000000 		.4byte	.LLST3
+ 935 01fd 10       		.uleb128 0x10
+ 936 01fe D4030000 		.4byte	.LASF33
+ 937 0202 01       		.byte	0x1
+ 938 0203 AA       		.byte	0xaa
+ 939 0204 81000000 		.4byte	0x81
+ 940 0208 9E000000 		.4byte	.LLST4
+ 941 020c 12       		.uleb128 0x12
+ 942 020d 98010000 		.4byte	.LBB2
+ 943 0211 1E000000 		.4byte	.LBE2-.LBB2
+ 944 0215 45020000 		.4byte	0x245
+ 945 0219 10       		.uleb128 0x10
+ 946 021a 32040000 		.4byte	.LASF34
+ 947 021e 01       		.byte	0x1
+ 948 021f D2       		.byte	0xd2
+ 949 0220 68000000 		.4byte	0x68
+ 950 0224 D6000000 		.4byte	.LLST5
+ 951 0228 0A       		.uleb128 0xa
+ 952 0229 9E010000 		.4byte	.LVL56
+ 953 022d D1070000 		.4byte	0x7d1
+ARM GAS  C:\Users\ariky\AppData\Local\Temp\ccEDxqgb.s 			page 23
+
+
+ 954 0231 3B020000 		.4byte	0x23b
+ 955 0235 0B       		.uleb128 0xb
+ 956 0236 01       		.uleb128 0x1
+ 957 0237 50       		.byte	0x50
+ 958 0238 01       		.uleb128 0x1
+ 959 0239 30       		.byte	0x30
+ 960 023a 00       		.byte	0
+ 961 023b 0C       		.uleb128 0xc
+ 962 023c A2010000 		.4byte	.LVL57
+ 963 0240 DC070000 		.4byte	0x7dc
+ 964 0244 00       		.byte	0
+ 965 0245 12       		.uleb128 0x12
+ 966 0246 B8010000 		.4byte	.LBB3
+ 967 024a 1E000000 		.4byte	.LBE3-.LBB3
+ 968 024e 7E020000 		.4byte	0x27e
+ 969 0252 10       		.uleb128 0x10
+ 970 0253 6C050000 		.4byte	.LASF35
+ 971 0257 01       		.byte	0x1
+ 972 0258 DA       		.byte	0xda
+ 973 0259 68000000 		.4byte	0x68
+ 974 025d F4000000 		.4byte	.LLST6
+ 975 0261 0A       		.uleb128 0xa
+ 976 0262 BE010000 		.4byte	.LVL63
+ 977 0266 D1070000 		.4byte	0x7d1
+ 978 026a 74020000 		.4byte	0x274
+ 979 026e 0B       		.uleb128 0xb
+ 980 026f 01       		.uleb128 0x1
+ 981 0270 50       		.byte	0x50
+ 982 0271 01       		.uleb128 0x1
+ 983 0272 31       		.byte	0x31
+ 984 0273 00       		.byte	0
+ 985 0274 0C       		.uleb128 0xc
+ 986 0275 C2010000 		.4byte	.LVL64
+ 987 0279 DC070000 		.4byte	0x7dc
+ 988 027d 00       		.byte	0
+ 989 027e 0C       		.uleb128 0xc
+ 990 027f 0A000000 		.4byte	.LVL2
+ 991 0283 E7070000 		.4byte	0x7e7
+ 992 0287 0C       		.uleb128 0xc
+ 993 0288 0E000000 		.4byte	.LVL3
+ 994 028c F2070000 		.4byte	0x7f2
+ 995 0290 0C       		.uleb128 0xc
+ 996 0291 12000000 		.4byte	.LVL4
+ 997 0295 FD070000 		.4byte	0x7fd
+ 998 0299 0C       		.uleb128 0xc
+ 999 029a 16000000 		.4byte	.LVL5
+ 1000 029e 08080000 		.4byte	0x808
+ 1001 02a2 0C       		.uleb128 0xc
+ 1002 02a3 1A000000 		.4byte	.LVL6
+ 1003 02a7 13080000 		.4byte	0x813
+ 1004 02ab 0C       		.uleb128 0xc
+ 1005 02ac 1E000000 		.4byte	.LVL7
+ 1006 02b0 1E080000 		.4byte	0x81e
+ 1007 02b4 0A       		.uleb128 0xa
+ 1008 02b5 24000000 		.4byte	.LVL8
+ 1009 02b9 29080000 		.4byte	0x829
+ 1010 02bd CB020000 		.4byte	0x2cb
+ARM GAS  C:\Users\ariky\AppData\Local\Temp\ccEDxqgb.s 			page 24
+
+
+ 1011 02c1 0B       		.uleb128 0xb
+ 1012 02c2 01       		.uleb128 0x1
+ 1013 02c3 50       		.byte	0x50
+ 1014 02c4 05       		.uleb128 0x5
+ 1015 02c5 03       		.byte	0x3
+ 1016 02c6 00000000 		.4byte	end
+ 1017 02ca 00       		.byte	0
+ 1018 02cb 0A       		.uleb128 0xa
+ 1019 02cc 2A000000 		.4byte	.LVL9
+ 1020 02d0 34080000 		.4byte	0x834
+ 1021 02d4 E2020000 		.4byte	0x2e2
+ 1022 02d8 0B       		.uleb128 0xb
+ 1023 02d9 01       		.uleb128 0x1
+ 1024 02da 50       		.byte	0x50
+ 1025 02db 05       		.uleb128 0x5
+ 1026 02dc 03       		.byte	0x3
+ 1027 02dd 00000000 		.4byte	end1
+ 1028 02e1 00       		.byte	0
+ 1029 02e2 0A       		.uleb128 0xa
+ 1030 02e3 30000000 		.4byte	.LVL10
+ 1031 02e7 3F080000 		.4byte	0x83f
+ 1032 02eb F9020000 		.4byte	0x2f9
+ 1033 02ef 0B       		.uleb128 0xb
+ 1034 02f0 01       		.uleb128 0x1
+ 1035 02f1 50       		.byte	0x50
+ 1036 02f2 05       		.uleb128 0x5
+ 1037 02f3 03       		.byte	0x3
+ 1038 02f4 00000000 		.4byte	time
+ 1039 02f8 00       		.byte	0
+ 1040 02f9 0C       		.uleb128 0xc
+ 1041 02fa 34000000 		.4byte	.LVL11
+ 1042 02fe 4A080000 		.4byte	0x84a
+ 1043 0302 0C       		.uleb128 0xc
+ 1044 0303 38000000 		.4byte	.LVL12
+ 1045 0307 55080000 		.4byte	0x855
+ 1046 030b 0C       		.uleb128 0xc
+ 1047 030c 3C000000 		.4byte	.LVL13
+ 1048 0310 60080000 		.4byte	0x860
+ 1049 0314 0A       		.uleb128 0xa
+ 1050 0315 6C000000 		.4byte	.LVL17
+ 1051 0319 6B080000 		.4byte	0x86b
+ 1052 031d 3A030000 		.4byte	0x33a
+ 1053 0321 0B       		.uleb128 0xb
+ 1054 0322 01       		.uleb128 0x1
+ 1055 0323 50       		.byte	0x50
+ 1056 0324 01       		.uleb128 0x1
+ 1057 0325 31       		.byte	0x31
+ 1058 0326 0B       		.uleb128 0xb
+ 1059 0327 01       		.uleb128 0x1
+ 1060 0328 51       		.byte	0x51
+ 1061 0329 01       		.uleb128 0x1
+ 1062 032a 31       		.byte	0x31
+ 1063 032b 0B       		.uleb128 0xb
+ 1064 032c 01       		.uleb128 0x1
+ 1065 032d 52       		.byte	0x52
+ 1066 032e 03       		.uleb128 0x3
+ 1067 032f 0A       		.byte	0xa
+ARM GAS  C:\Users\ariky\AppData\Local\Temp\ccEDxqgb.s 			page 25
+
+
+ 1068 0330 0040     		.2byte	0x4000
+ 1069 0332 0B       		.uleb128 0xb
+ 1070 0333 01       		.uleb128 0x1
+ 1071 0334 53       		.byte	0x53
+ 1072 0335 03       		.uleb128 0x3
+ 1073 0336 0A       		.byte	0xa
+ 1074 0337 FF1F     		.2byte	0x1fff
+ 1075 0339 00       		.byte	0
+ 1076 033a 0C       		.uleb128 0xc
+ 1077 033b 72000000 		.4byte	.LVL19
+ 1078 033f 76080000 		.4byte	0x876
+ 1079 0343 0C       		.uleb128 0xc
+ 1080 0344 78000000 		.4byte	.LVL20
+ 1081 0348 76080000 		.4byte	0x876
+ 1082 034c 0A       		.uleb128 0xa
+ 1083 034d 86000000 		.4byte	.LVL21
+ 1084 0351 81080000 		.4byte	0x881
+ 1085 0355 71030000 		.4byte	0x371
+ 1086 0359 0B       		.uleb128 0xb
+ 1087 035a 01       		.uleb128 0x1
+ 1088 035b 50       		.byte	0x50
+ 1089 035c 02       		.uleb128 0x2
+ 1090 035d 74       		.byte	0x74
+ 1091 035e 00       		.sleb128 0
+ 1092 035f 0B       		.uleb128 0xb
+ 1093 0360 01       		.uleb128 0x1
+ 1094 0361 51       		.byte	0x51
+ 1095 0362 02       		.uleb128 0x2
+ 1096 0363 08       		.byte	0x8
+ 1097 0364 40       		.byte	0x40
+ 1098 0365 0B       		.uleb128 0xb
+ 1099 0366 01       		.uleb128 0x1
+ 1100 0367 52       		.byte	0x52
+ 1101 0368 02       		.uleb128 0x2
+ 1102 0369 75       		.byte	0x75
+ 1103 036a 00       		.sleb128 0
+ 1104 036b 0B       		.uleb128 0xb
+ 1105 036c 01       		.uleb128 0x1
+ 1106 036d 53       		.byte	0x53
+ 1107 036e 01       		.uleb128 0x1
+ 1108 036f 36       		.byte	0x36
+ 1109 0370 00       		.byte	0
+ 1110 0371 0A       		.uleb128 0xa
+ 1111 0372 92000000 		.4byte	.LVL22
+ 1112 0376 81080000 		.4byte	0x881
+ 1113 037a 96030000 		.4byte	0x396
+ 1114 037e 0B       		.uleb128 0xb
+ 1115 037f 01       		.uleb128 0x1
+ 1116 0380 50       		.byte	0x50
+ 1117 0381 02       		.uleb128 0x2
+ 1118 0382 75       		.byte	0x75
+ 1119 0383 00       		.sleb128 0
+ 1120 0384 0B       		.uleb128 0xb
+ 1121 0385 01       		.uleb128 0x1
+ 1122 0386 51       		.byte	0x51
+ 1123 0387 02       		.uleb128 0x2
+ 1124 0388 08       		.byte	0x8
+ARM GAS  C:\Users\ariky\AppData\Local\Temp\ccEDxqgb.s 			page 26
+
+
+ 1125 0389 40       		.byte	0x40
+ 1126 038a 0B       		.uleb128 0xb
+ 1127 038b 01       		.uleb128 0x1
+ 1128 038c 52       		.byte	0x52
+ 1129 038d 02       		.uleb128 0x2
+ 1130 038e 74       		.byte	0x74
+ 1131 038f 00       		.sleb128 0
+ 1132 0390 0B       		.uleb128 0xb
+ 1133 0391 01       		.uleb128 0x1
+ 1134 0392 53       		.byte	0x53
+ 1135 0393 01       		.uleb128 0x1
+ 1136 0394 36       		.byte	0x36
+ 1137 0395 00       		.byte	0
+ 1138 0396 0A       		.uleb128 0xa
+ 1139 0397 A0000000 		.4byte	.LVL23
+ 1140 039b 8C080000 		.4byte	0x88c
+ 1141 039f B8030000 		.4byte	0x3b8
+ 1142 03a3 0B       		.uleb128 0xb
+ 1143 03a4 01       		.uleb128 0x1
+ 1144 03a5 50       		.byte	0x50
+ 1145 03a6 02       		.uleb128 0x2
+ 1146 03a7 74       		.byte	0x74
+ 1147 03a8 00       		.sleb128 0
+ 1148 03a9 0B       		.uleb128 0xb
+ 1149 03aa 01       		.uleb128 0x1
+ 1150 03ab 51       		.byte	0x51
+ 1151 03ac 03       		.uleb128 0x3
+ 1152 03ad 0A       		.byte	0xa
+ 1153 03ae A05B     		.2byte	0x5ba0
+ 1154 03b0 0B       		.uleb128 0xb
+ 1155 03b1 01       		.uleb128 0x1
+ 1156 03b2 52       		.byte	0x52
+ 1157 03b3 03       		.uleb128 0x3
+ 1158 03b4 91       		.byte	0x91
+ 1159 03b5 B07F     		.sleb128 -80
+ 1160 03b7 00       		.byte	0
+ 1161 03b8 0A       		.uleb128 0xa
+ 1162 03b9 AE000000 		.4byte	.LVL24
+ 1163 03bd 8C080000 		.4byte	0x88c
+ 1164 03c1 DA030000 		.4byte	0x3da
+ 1165 03c5 0B       		.uleb128 0xb
+ 1166 03c6 01       		.uleb128 0x1
+ 1167 03c7 50       		.byte	0x50
+ 1168 03c8 02       		.uleb128 0x2
+ 1169 03c9 75       		.byte	0x75
+ 1170 03ca 00       		.sleb128 0
+ 1171 03cb 0B       		.uleb128 0xb
+ 1172 03cc 01       		.uleb128 0x1
+ 1173 03cd 51       		.byte	0x51
+ 1174 03ce 03       		.uleb128 0x3
+ 1175 03cf 0A       		.byte	0xa
+ 1176 03d0 A05B     		.2byte	0x5ba0
+ 1177 03d2 0B       		.uleb128 0xb
+ 1178 03d3 01       		.uleb128 0x1
+ 1179 03d4 52       		.byte	0x52
+ 1180 03d5 03       		.uleb128 0x3
+ 1181 03d6 91       		.byte	0x91
+ARM GAS  C:\Users\ariky\AppData\Local\Temp\ccEDxqgb.s 			page 27
+
+
+ 1182 03d7 F07E     		.sleb128 -144
+ 1183 03d9 00       		.byte	0
+ 1184 03da 0A       		.uleb128 0xa
+ 1185 03db B6000000 		.4byte	.LVL25
+ 1186 03df 97080000 		.4byte	0x897
+ 1187 03e3 F4030000 		.4byte	0x3f4
+ 1188 03e7 0B       		.uleb128 0xb
+ 1189 03e8 01       		.uleb128 0x1
+ 1190 03e9 50       		.byte	0x50
+ 1191 03ea 02       		.uleb128 0x2
+ 1192 03eb 76       		.byte	0x76
+ 1193 03ec 00       		.sleb128 0
+ 1194 03ed 0B       		.uleb128 0xb
+ 1195 03ee 01       		.uleb128 0x1
+ 1196 03ef 51       		.byte	0x51
+ 1197 03f0 02       		.uleb128 0x2
+ 1198 03f1 74       		.byte	0x74
+ 1199 03f2 00       		.sleb128 0
+ 1200 03f3 00       		.byte	0
+ 1201 03f4 0A       		.uleb128 0xa
+ 1202 03f5 BE000000 		.4byte	.LVL26
+ 1203 03f9 A2080000 		.4byte	0x8a2
+ 1204 03fd 0D040000 		.4byte	0x40d
+ 1205 0401 0B       		.uleb128 0xb
+ 1206 0402 01       		.uleb128 0x1
+ 1207 0403 50       		.byte	0x50
+ 1208 0404 02       		.uleb128 0x2
+ 1209 0405 76       		.byte	0x76
+ 1210 0406 00       		.sleb128 0
+ 1211 0407 0B       		.uleb128 0xb
+ 1212 0408 01       		.uleb128 0x1
+ 1213 0409 51       		.byte	0x51
+ 1214 040a 01       		.uleb128 0x1
+ 1215 040b 31       		.byte	0x31
+ 1216 040c 00       		.byte	0
+ 1217 040d 0A       		.uleb128 0xa
+ 1218 040e CE000000 		.4byte	.LVL27
+ 1219 0412 AD080000 		.4byte	0x8ad
+ 1220 0416 33040000 		.4byte	0x433
+ 1221 041a 0B       		.uleb128 0xb
+ 1222 041b 01       		.uleb128 0x1
+ 1223 041c 50       		.byte	0x50
+ 1224 041d 01       		.uleb128 0x1
+ 1225 041e 31       		.byte	0x31
+ 1226 041f 0B       		.uleb128 0xb
+ 1227 0420 01       		.uleb128 0x1
+ 1228 0421 51       		.byte	0x51
+ 1229 0422 01       		.uleb128 0x1
+ 1230 0423 31       		.byte	0x31
+ 1231 0424 0B       		.uleb128 0xb
+ 1232 0425 01       		.uleb128 0x1
+ 1233 0426 52       		.byte	0x52
+ 1234 0427 03       		.uleb128 0x3
+ 1235 0428 0A       		.byte	0xa
+ 1236 0429 0040     		.2byte	0x4000
+ 1237 042b 0B       		.uleb128 0xb
+ 1238 042c 01       		.uleb128 0x1
+ARM GAS  C:\Users\ariky\AppData\Local\Temp\ccEDxqgb.s 			page 28
+
+
+ 1239 042d 53       		.byte	0x53
+ 1240 042e 03       		.uleb128 0x3
+ 1241 042f 0A       		.byte	0xa
+ 1242 0430 FF1F     		.2byte	0x1fff
+ 1243 0432 00       		.byte	0
+ 1244 0433 0C       		.uleb128 0xc
+ 1245 0434 D4000000 		.4byte	.LVL29
+ 1246 0438 76080000 		.4byte	0x876
+ 1247 043c 0C       		.uleb128 0xc
+ 1248 043d DA000000 		.4byte	.LVL30
+ 1249 0441 76080000 		.4byte	0x876
+ 1250 0445 0A       		.uleb128 0xa
+ 1251 0446 E8000000 		.4byte	.LVL31
+ 1252 044a 81080000 		.4byte	0x881
+ 1253 044e 6A040000 		.4byte	0x46a
+ 1254 0452 0B       		.uleb128 0xb
+ 1255 0453 01       		.uleb128 0x1
+ 1256 0454 50       		.byte	0x50
+ 1257 0455 02       		.uleb128 0x2
+ 1258 0456 74       		.byte	0x74
+ 1259 0457 00       		.sleb128 0
+ 1260 0458 0B       		.uleb128 0xb
+ 1261 0459 01       		.uleb128 0x1
+ 1262 045a 51       		.byte	0x51
+ 1263 045b 02       		.uleb128 0x2
+ 1264 045c 08       		.byte	0x8
+ 1265 045d 40       		.byte	0x40
+ 1266 045e 0B       		.uleb128 0xb
+ 1267 045f 01       		.uleb128 0x1
+ 1268 0460 52       		.byte	0x52
+ 1269 0461 02       		.uleb128 0x2
+ 1270 0462 75       		.byte	0x75
+ 1271 0463 00       		.sleb128 0
+ 1272 0464 0B       		.uleb128 0xb
+ 1273 0465 01       		.uleb128 0x1
+ 1274 0466 53       		.byte	0x53
+ 1275 0467 01       		.uleb128 0x1
+ 1276 0468 36       		.byte	0x36
+ 1277 0469 00       		.byte	0
+ 1278 046a 0A       		.uleb128 0xa
+ 1279 046b F4000000 		.4byte	.LVL32
+ 1280 046f 81080000 		.4byte	0x881
+ 1281 0473 8F040000 		.4byte	0x48f
+ 1282 0477 0B       		.uleb128 0xb
+ 1283 0478 01       		.uleb128 0x1
+ 1284 0479 50       		.byte	0x50
+ 1285 047a 02       		.uleb128 0x2
+ 1286 047b 75       		.byte	0x75
+ 1287 047c 00       		.sleb128 0
+ 1288 047d 0B       		.uleb128 0xb
+ 1289 047e 01       		.uleb128 0x1
+ 1290 047f 51       		.byte	0x51
+ 1291 0480 02       		.uleb128 0x2
+ 1292 0481 08       		.byte	0x8
+ 1293 0482 40       		.byte	0x40
+ 1294 0483 0B       		.uleb128 0xb
+ 1295 0484 01       		.uleb128 0x1
+ARM GAS  C:\Users\ariky\AppData\Local\Temp\ccEDxqgb.s 			page 29
+
+
+ 1296 0485 52       		.byte	0x52
+ 1297 0486 02       		.uleb128 0x2
+ 1298 0487 74       		.byte	0x74
+ 1299 0488 00       		.sleb128 0
+ 1300 0489 0B       		.uleb128 0xb
+ 1301 048a 01       		.uleb128 0x1
+ 1302 048b 53       		.byte	0x53
+ 1303 048c 01       		.uleb128 0x1
+ 1304 048d 36       		.byte	0x36
+ 1305 048e 00       		.byte	0
+ 1306 048f 0A       		.uleb128 0xa
+ 1307 0490 02010000 		.4byte	.LVL33
+ 1308 0494 8C080000 		.4byte	0x88c
+ 1309 0498 B1040000 		.4byte	0x4b1
+ 1310 049c 0B       		.uleb128 0xb
+ 1311 049d 01       		.uleb128 0x1
+ 1312 049e 50       		.byte	0x50
+ 1313 049f 02       		.uleb128 0x2
+ 1314 04a0 74       		.byte	0x74
+ 1315 04a1 00       		.sleb128 0
+ 1316 04a2 0B       		.uleb128 0xb
+ 1317 04a3 01       		.uleb128 0x1
+ 1318 04a4 51       		.byte	0x51
+ 1319 04a5 03       		.uleb128 0x3
+ 1320 04a6 0A       		.byte	0xa
+ 1321 04a7 A25B     		.2byte	0x5ba2
+ 1322 04a9 0B       		.uleb128 0xb
+ 1323 04aa 01       		.uleb128 0x1
+ 1324 04ab 52       		.byte	0x52
+ 1325 04ac 03       		.uleb128 0x3
+ 1326 04ad 91       		.byte	0x91
+ 1327 04ae B07E     		.sleb128 -208
+ 1328 04b0 00       		.byte	0
+ 1329 04b1 0A       		.uleb128 0xa
+ 1330 04b2 10010000 		.4byte	.LVL34
+ 1331 04b6 8C080000 		.4byte	0x88c
+ 1332 04ba D3040000 		.4byte	0x4d3
+ 1333 04be 0B       		.uleb128 0xb
+ 1334 04bf 01       		.uleb128 0x1
+ 1335 04c0 50       		.byte	0x50
+ 1336 04c1 02       		.uleb128 0x2
+ 1337 04c2 75       		.byte	0x75
+ 1338 04c3 00       		.sleb128 0
+ 1339 04c4 0B       		.uleb128 0xb
+ 1340 04c5 01       		.uleb128 0x1
+ 1341 04c6 51       		.byte	0x51
+ 1342 04c7 03       		.uleb128 0x3
+ 1343 04c8 0A       		.byte	0xa
+ 1344 04c9 A25B     		.2byte	0x5ba2
+ 1345 04cb 0B       		.uleb128 0xb
+ 1346 04cc 01       		.uleb128 0x1
+ 1347 04cd 52       		.byte	0x52
+ 1348 04ce 03       		.uleb128 0x3
+ 1349 04cf 91       		.byte	0x91
+ 1350 04d0 F07D     		.sleb128 -272
+ 1351 04d2 00       		.byte	0
+ 1352 04d3 0A       		.uleb128 0xa
+ARM GAS  C:\Users\ariky\AppData\Local\Temp\ccEDxqgb.s 			page 30
+
+
+ 1353 04d4 18010000 		.4byte	.LVL35
+ 1354 04d8 97080000 		.4byte	0x897
+ 1355 04dc ED040000 		.4byte	0x4ed
+ 1356 04e0 0B       		.uleb128 0xb
+ 1357 04e1 01       		.uleb128 0x1
+ 1358 04e2 50       		.byte	0x50
+ 1359 04e3 02       		.uleb128 0x2
+ 1360 04e4 76       		.byte	0x76
+ 1361 04e5 00       		.sleb128 0
+ 1362 04e6 0B       		.uleb128 0xb
+ 1363 04e7 01       		.uleb128 0x1
+ 1364 04e8 51       		.byte	0x51
+ 1365 04e9 02       		.uleb128 0x2
+ 1366 04ea 74       		.byte	0x74
+ 1367 04eb 00       		.sleb128 0
+ 1368 04ec 00       		.byte	0
+ 1369 04ed 0A       		.uleb128 0xa
+ 1370 04ee 20010000 		.4byte	.LVL36
+ 1371 04f2 A2080000 		.4byte	0x8a2
+ 1372 04f6 06050000 		.4byte	0x506
+ 1373 04fa 0B       		.uleb128 0xb
+ 1374 04fb 01       		.uleb128 0x1
+ 1375 04fc 50       		.byte	0x50
+ 1376 04fd 02       		.uleb128 0x2
+ 1377 04fe 76       		.byte	0x76
+ 1378 04ff 00       		.sleb128 0
+ 1379 0500 0B       		.uleb128 0xb
+ 1380 0501 01       		.uleb128 0x1
+ 1381 0502 51       		.byte	0x51
+ 1382 0503 01       		.uleb128 0x1
+ 1383 0504 31       		.byte	0x31
+ 1384 0505 00       		.byte	0
+ 1385 0506 0A       		.uleb128 0xa
+ 1386 0507 28010000 		.4byte	.LVL37
+ 1387 050b B8080000 		.4byte	0x8b8
+ 1388 050f 1E050000 		.4byte	0x51e
+ 1389 0513 0B       		.uleb128 0xb
+ 1390 0514 01       		.uleb128 0x1
+ 1391 0515 50       		.byte	0x50
+ 1392 0516 01       		.uleb128 0x1
+ 1393 0517 30       		.byte	0x30
+ 1394 0518 0B       		.uleb128 0xb
+ 1395 0519 01       		.uleb128 0x1
+ 1396 051a 51       		.byte	0x51
+ 1397 051b 01       		.uleb128 0x1
+ 1398 051c 31       		.byte	0x31
+ 1399 051d 00       		.byte	0
+ 1400 051e 0C       		.uleb128 0xc
+ 1401 051f 2C010000 		.4byte	.LVL38
+ 1402 0523 C4080000 		.4byte	0x8c4
+ 1403 0527 0A       		.uleb128 0xa
+ 1404 0528 36010000 		.4byte	.LVL39
+ 1405 052c D0080000 		.4byte	0x8d0
+ 1406 0530 3A050000 		.4byte	0x53a
+ 1407 0534 0B       		.uleb128 0xb
+ 1408 0535 01       		.uleb128 0x1
+ 1409 0536 50       		.byte	0x50
+ARM GAS  C:\Users\ariky\AppData\Local\Temp\ccEDxqgb.s 			page 31
+
+
+ 1410 0537 01       		.uleb128 0x1
+ 1411 0538 33       		.byte	0x33
+ 1412 0539 00       		.byte	0
+ 1413 053a 0A       		.uleb128 0xa
+ 1414 053b 48010000 		.4byte	.LVL41
+ 1415 053f DC080000 		.4byte	0x8dc
+ 1416 0543 53050000 		.4byte	0x553
+ 1417 0547 0B       		.uleb128 0xb
+ 1418 0548 01       		.uleb128 0x1
+ 1419 0549 50       		.byte	0x50
+ 1420 054a 02       		.uleb128 0x2
+ 1421 054b 7D       		.byte	0x7d
+ 1422 054c 00       		.sleb128 0
+ 1423 054d 0B       		.uleb128 0xb
+ 1424 054e 01       		.uleb128 0x1
+ 1425 054f 51       		.byte	0x51
+ 1426 0550 01       		.uleb128 0x1
+ 1427 0551 31       		.byte	0x31
+ 1428 0552 00       		.byte	0
+ 1429 0553 0A       		.uleb128 0xa
+ 1430 0554 50010000 		.4byte	.LVL42
+ 1431 0558 E7080000 		.4byte	0x8e7
+ 1432 055c 6D050000 		.4byte	0x56d
+ 1433 0560 0B       		.uleb128 0xb
+ 1434 0561 01       		.uleb128 0x1
+ 1435 0562 50       		.byte	0x50
+ 1436 0563 03       		.uleb128 0x3
+ 1437 0564 91       		.byte	0x91
+ 1438 0565 EC7D     		.sleb128 -276
+ 1439 0567 0B       		.uleb128 0xb
+ 1440 0568 01       		.uleb128 0x1
+ 1441 0569 51       		.byte	0x51
+ 1442 056a 01       		.uleb128 0x1
+ 1443 056b 32       		.byte	0x32
+ 1444 056c 00       		.byte	0
+ 1445 056d 0C       		.uleb128 0xc
+ 1446 056e 54010000 		.4byte	.LVL43
+ 1447 0572 F2080000 		.4byte	0x8f2
+ 1448 0576 0C       		.uleb128 0xc
+ 1449 0577 58010000 		.4byte	.LVL44
+ 1450 057b FD080000 		.4byte	0x8fd
+ 1451 057f 0A       		.uleb128 0xa
+ 1452 0580 6C010000 		.4byte	.LVL48
+ 1453 0584 08090000 		.4byte	0x908
+ 1454 0588 92050000 		.4byte	0x592
+ 1455 058c 0B       		.uleb128 0xb
+ 1456 058d 01       		.uleb128 0x1
+ 1457 058e 51       		.byte	0x51
+ 1458 058f 01       		.uleb128 0x1
+ 1459 0590 31       		.byte	0x31
+ 1460 0591 00       		.byte	0
+ 1461 0592 0C       		.uleb128 0xc
+ 1462 0593 70010000 		.4byte	.LVL49
+ 1463 0597 13090000 		.4byte	0x913
+ 1464 059b 0C       		.uleb128 0xc
+ 1465 059c 74010000 		.4byte	.LVL50
+ 1466 05a0 1E090000 		.4byte	0x91e
+ARM GAS  C:\Users\ariky\AppData\Local\Temp\ccEDxqgb.s 			page 32
+
+
+ 1467 05a4 0C       		.uleb128 0xc
+ 1468 05a5 7A010000 		.4byte	.LVL52
+ 1469 05a9 FD080000 		.4byte	0x8fd
+ 1470 05ad 0C       		.uleb128 0xc
+ 1471 05ae 84010000 		.4byte	.LVL53
+ 1472 05b2 29090000 		.4byte	0x929
+ 1473 05b6 0C       		.uleb128 0xc
+ 1474 05b7 8C010000 		.4byte	.LVL54
+ 1475 05bb 34090000 		.4byte	0x934
+ 1476 05bf 0C       		.uleb128 0xc
+ 1477 05c0 90010000 		.4byte	.LVL55
+ 1478 05c4 3F090000 		.4byte	0x93f
+ 1479 05c8 0A       		.uleb128 0xa
+ 1480 05c9 E8010000 		.4byte	.LVL70
+ 1481 05cd 4A090000 		.4byte	0x94a
+ 1482 05d1 DB050000 		.4byte	0x5db
+ 1483 05d5 0B       		.uleb128 0xb
+ 1484 05d6 01       		.uleb128 0x1
+ 1485 05d7 50       		.byte	0x50
+ 1486 05d8 01       		.uleb128 0x1
+ 1487 05d9 31       		.byte	0x31
+ 1488 05da 00       		.byte	0
+ 1489 05db 0A       		.uleb128 0xa
+ 1490 05dc F4010000 		.4byte	.LVL71
+ 1491 05e0 56090000 		.4byte	0x956
+ 1492 05e4 F6050000 		.4byte	0x5f6
+ 1493 05e8 0B       		.uleb128 0xb
+ 1494 05e9 01       		.uleb128 0x1
+ 1495 05ea 51       		.byte	0x51
+ 1496 05eb 03       		.uleb128 0x3
+ 1497 05ec 91       		.byte	0x91
+ 1498 05ed B07F     		.sleb128 -80
+ 1499 05ef 0B       		.uleb128 0xb
+ 1500 05f0 01       		.uleb128 0x1
+ 1501 05f1 52       		.byte	0x52
+ 1502 05f2 02       		.uleb128 0x2
+ 1503 05f3 08       		.byte	0x8
+ 1504 05f4 40       		.byte	0x40
+ 1505 05f5 00       		.byte	0
+ 1506 05f6 0A       		.uleb128 0xa
+ 1507 05f7 08020000 		.4byte	.LVL72
+ 1508 05fb 4A090000 		.4byte	0x94a
+ 1509 05ff 09060000 		.4byte	0x609
+ 1510 0603 0B       		.uleb128 0xb
+ 1511 0604 01       		.uleb128 0x1
+ 1512 0605 50       		.byte	0x50
+ 1513 0606 01       		.uleb128 0x1
+ 1514 0607 31       		.byte	0x31
+ 1515 0608 00       		.byte	0
+ 1516 0609 0A       		.uleb128 0xa
+ 1517 060a 14020000 		.4byte	.LVL73
+ 1518 060e 56090000 		.4byte	0x956
+ 1519 0612 24060000 		.4byte	0x624
+ 1520 0616 0B       		.uleb128 0xb
+ 1521 0617 01       		.uleb128 0x1
+ 1522 0618 51       		.byte	0x51
+ 1523 0619 03       		.uleb128 0x3
+ARM GAS  C:\Users\ariky\AppData\Local\Temp\ccEDxqgb.s 			page 33
+
+
+ 1524 061a 91       		.byte	0x91
+ 1525 061b F07E     		.sleb128 -144
+ 1526 061d 0B       		.uleb128 0xb
+ 1527 061e 01       		.uleb128 0x1
+ 1528 061f 52       		.byte	0x52
+ 1529 0620 02       		.uleb128 0x2
+ 1530 0621 08       		.byte	0x8
+ 1531 0622 40       		.byte	0x40
+ 1532 0623 00       		.byte	0
+ 1533 0624 0A       		.uleb128 0xa
+ 1534 0625 26020000 		.4byte	.LVL74
+ 1535 0629 4A090000 		.4byte	0x94a
+ 1536 062d 37060000 		.4byte	0x637
+ 1537 0631 0B       		.uleb128 0xb
+ 1538 0632 01       		.uleb128 0x1
+ 1539 0633 50       		.byte	0x50
+ 1540 0634 01       		.uleb128 0x1
+ 1541 0635 32       		.byte	0x32
+ 1542 0636 00       		.byte	0
+ 1543 0637 0A       		.uleb128 0xa
+ 1544 0638 34020000 		.4byte	.LVL75
+ 1545 063c 56090000 		.4byte	0x956
+ 1546 0640 57060000 		.4byte	0x657
+ 1547 0644 0B       		.uleb128 0xb
+ 1548 0645 01       		.uleb128 0x1
+ 1549 0646 50       		.byte	0x50
+ 1550 0647 01       		.uleb128 0x1
+ 1551 0648 32       		.byte	0x32
+ 1552 0649 0B       		.uleb128 0xb
+ 1553 064a 01       		.uleb128 0x1
+ 1554 064b 51       		.byte	0x51
+ 1555 064c 03       		.uleb128 0x3
+ 1556 064d 91       		.byte	0x91
+ 1557 064e B07E     		.sleb128 -208
+ 1558 0650 0B       		.uleb128 0xb
+ 1559 0651 01       		.uleb128 0x1
+ 1560 0652 52       		.byte	0x52
+ 1561 0653 02       		.uleb128 0x2
+ 1562 0654 08       		.byte	0x8
+ 1563 0655 40       		.byte	0x40
+ 1564 0656 00       		.byte	0
+ 1565 0657 0A       		.uleb128 0xa
+ 1566 0658 48020000 		.4byte	.LVL76
+ 1567 065c 4A090000 		.4byte	0x94a
+ 1568 0660 6A060000 		.4byte	0x66a
+ 1569 0664 0B       		.uleb128 0xb
+ 1570 0665 01       		.uleb128 0x1
+ 1571 0666 50       		.byte	0x50
+ 1572 0667 01       		.uleb128 0x1
+ 1573 0668 32       		.byte	0x32
+ 1574 0669 00       		.byte	0
+ 1575 066a 0A       		.uleb128 0xa
+ 1576 066b 56020000 		.4byte	.LVL77
+ 1577 066f 56090000 		.4byte	0x956
+ 1578 0673 8A060000 		.4byte	0x68a
+ 1579 0677 0B       		.uleb128 0xb
+ 1580 0678 01       		.uleb128 0x1
+ARM GAS  C:\Users\ariky\AppData\Local\Temp\ccEDxqgb.s 			page 34
+
+
+ 1581 0679 50       		.byte	0x50
+ 1582 067a 01       		.uleb128 0x1
+ 1583 067b 32       		.byte	0x32
+ 1584 067c 0B       		.uleb128 0xb
+ 1585 067d 01       		.uleb128 0x1
+ 1586 067e 51       		.byte	0x51
+ 1587 067f 03       		.uleb128 0x3
+ 1588 0680 91       		.byte	0x91
+ 1589 0681 F07D     		.sleb128 -272
+ 1590 0683 0B       		.uleb128 0xb
+ 1591 0684 01       		.uleb128 0x1
+ 1592 0685 52       		.byte	0x52
+ 1593 0686 02       		.uleb128 0x2
+ 1594 0687 08       		.byte	0x8
+ 1595 0688 40       		.byte	0x40
+ 1596 0689 00       		.byte	0
+ 1597 068a 0C       		.uleb128 0xc
+ 1598 068b 60020000 		.4byte	.LVL78
+ 1599 068f 62090000 		.4byte	0x962
+ 1600 0693 0C       		.uleb128 0xc
+ 1601 0694 66020000 		.4byte	.LVL79
+ 1602 0698 C4080000 		.4byte	0x8c4
+ 1603 069c 0A       		.uleb128 0xa
+ 1604 069d 6E020000 		.4byte	.LVL80
+ 1605 06a1 D0080000 		.4byte	0x8d0
+ 1606 06a5 AF060000 		.4byte	0x6af
+ 1607 06a9 0B       		.uleb128 0xb
+ 1608 06aa 01       		.uleb128 0x1
+ 1609 06ab 50       		.byte	0x50
+ 1610 06ac 01       		.uleb128 0x1
+ 1611 06ad 33       		.byte	0x33
+ 1612 06ae 00       		.byte	0
+ 1613 06af 0A       		.uleb128 0xa
+ 1614 06b0 76020000 		.4byte	.LVL81
+ 1615 06b4 6E090000 		.4byte	0x96e
+ 1616 06b8 C7060000 		.4byte	0x6c7
+ 1617 06bc 0B       		.uleb128 0xb
+ 1618 06bd 01       		.uleb128 0x1
+ 1619 06be 50       		.byte	0x50
+ 1620 06bf 01       		.uleb128 0x1
+ 1621 06c0 30       		.byte	0x30
+ 1622 06c1 0B       		.uleb128 0xb
+ 1623 06c2 01       		.uleb128 0x1
+ 1624 06c3 51       		.byte	0x51
+ 1625 06c4 01       		.uleb128 0x1
+ 1626 06c5 30       		.byte	0x30
+ 1627 06c6 00       		.byte	0
+ 1628 06c7 0C       		.uleb128 0xc
+ 1629 06c8 7E020000 		.4byte	.LVL82
+ 1630 06cc 79090000 		.4byte	0x979
+ 1631 06d0 0A       		.uleb128 0xa
+ 1632 06d1 86020000 		.4byte	.LVL83
+ 1633 06d5 6E090000 		.4byte	0x96e
+ 1634 06d9 E8060000 		.4byte	0x6e8
+ 1635 06dd 0B       		.uleb128 0xb
+ 1636 06de 01       		.uleb128 0x1
+ 1637 06df 50       		.byte	0x50
+ARM GAS  C:\Users\ariky\AppData\Local\Temp\ccEDxqgb.s 			page 35
+
+
+ 1638 06e0 01       		.uleb128 0x1
+ 1639 06e1 31       		.byte	0x31
+ 1640 06e2 0B       		.uleb128 0xb
+ 1641 06e3 01       		.uleb128 0x1
+ 1642 06e4 51       		.byte	0x51
+ 1643 06e5 01       		.uleb128 0x1
+ 1644 06e6 30       		.byte	0x30
+ 1645 06e7 00       		.byte	0
+ 1646 06e8 0C       		.uleb128 0xc
+ 1647 06e9 8E020000 		.4byte	.LVL84
+ 1648 06ed 79090000 		.4byte	0x979
+ 1649 06f1 00       		.byte	0
+ 1650 06f2 13       		.uleb128 0x13
+ 1651 06f3 81000000 		.4byte	0x81
+ 1652 06f7 02070000 		.4byte	0x702
+ 1653 06fb 14       		.uleb128 0x14
+ 1654 06fc D2000000 		.4byte	0xd2
+ 1655 0700 3F       		.byte	0x3f
+ 1656 0701 00       		.byte	0
+ 1657 0702 13       		.uleb128 0x13
+ 1658 0703 81000000 		.4byte	0x81
+ 1659 0707 12070000 		.4byte	0x712
+ 1660 070b 14       		.uleb128 0x14
+ 1661 070c D2000000 		.4byte	0xd2
+ 1662 0710 01       		.byte	0x1
+ 1663 0711 00       		.byte	0
+ 1664 0712 13       		.uleb128 0x13
+ 1665 0713 81000000 		.4byte	0x81
+ 1666 0717 22070000 		.4byte	0x722
+ 1667 071b 14       		.uleb128 0x14
+ 1668 071c D2000000 		.4byte	0xd2
+ 1669 0720 00       		.byte	0
+ 1670 0721 00       		.byte	0
+ 1671 0722 15       		.uleb128 0x15
+ 1672 0723 D1040000 		.4byte	.LASF36
+ 1673 0727 05       		.byte	0x5
+ 1674 0728 1207     		.2byte	0x712
+ 1675 072a 2E070000 		.4byte	0x72e
+ 1676 072e 06       		.uleb128 0x6
+ 1677 072f 76000000 		.4byte	0x76
+ 1678 0733 16       		.uleb128 0x16
+ 1679 0734 88010000 		.4byte	.LASF37
+ 1680 0738 01       		.byte	0x1
+ 1681 0739 10       		.byte	0x10
+ 1682 073a 68000000 		.4byte	0x68
+ 1683 073e 05       		.uleb128 0x5
+ 1684 073f 03       		.byte	0x3
+ 1685 0740 00000000 		.4byte	flag1
+ 1686 0744 16       		.uleb128 0x16
+ 1687 0745 F9020000 		.4byte	.LASF38
+ 1688 0749 01       		.byte	0x1
+ 1689 074a 11       		.byte	0x11
+ 1690 074b 68000000 		.4byte	0x68
+ 1691 074f 05       		.uleb128 0x5
+ 1692 0750 03       		.byte	0x3
+ 1693 0751 00000000 		.4byte	flag2
+ 1694 0755 16       		.uleb128 0x16
+ARM GAS  C:\Users\ariky\AppData\Local\Temp\ccEDxqgb.s 			page 36
+
+
+ 1695 0756 A7030000 		.4byte	.LASF39
+ 1696 075a 01       		.byte	0x1
+ 1697 075b 12       		.byte	0x12
+ 1698 075c 68000000 		.4byte	0x68
+ 1699 0760 05       		.uleb128 0x5
+ 1700 0761 03       		.byte	0x3
+ 1701 0762 00000000 		.4byte	src1Flag1
+ 1702 0766 16       		.uleb128 0x16
+ 1703 0767 B8030000 		.4byte	.LASF40
+ 1704 076b 01       		.byte	0x1
+ 1705 076c 13       		.byte	0x13
+ 1706 076d 68000000 		.4byte	0x68
+ 1707 0771 05       		.uleb128 0x5
+ 1708 0772 03       		.byte	0x3
+ 1709 0773 00000000 		.4byte	src1Flag2
+ 1710 0777 16       		.uleb128 0x16
+ 1711 0778 EC030000 		.4byte	.LASF41
+ 1712 077c 01       		.byte	0x1
+ 1713 077d 14       		.byte	0x14
+ 1714 077e 68000000 		.4byte	0x68
+ 1715 0782 05       		.uleb128 0x5
+ 1716 0783 03       		.byte	0x3
+ 1717 0784 00000000 		.4byte	src2Flag1
+ 1718 0788 16       		.uleb128 0x16
+ 1719 0789 F6030000 		.4byte	.LASF42
+ 1720 078d 01       		.byte	0x1
+ 1721 078e 15       		.byte	0x15
+ 1722 078f 68000000 		.4byte	0x68
+ 1723 0793 05       		.uleb128 0x5
+ 1724 0794 03       		.byte	0x3
+ 1725 0795 00000000 		.4byte	src2Flag2
+ 1726 0799 16       		.uleb128 0x16
+ 1727 079a 2B010000 		.4byte	.LASF43
+ 1728 079e 01       		.byte	0x1
+ 1729 079f 16       		.byte	0x16
+ 1730 07a0 68000000 		.4byte	0x68
+ 1731 07a4 05       		.uleb128 0x5
+ 1732 07a5 03       		.byte	0x3
+ 1733 07a6 00000000 		.4byte	timeFlag
+ 1734 07aa 16       		.uleb128 0x16
+ 1735 07ab 7B030000 		.4byte	.LASF44
+ 1736 07af 01       		.byte	0x1
+ 1737 07b0 25       		.byte	0x25
+ 1738 07b1 F2060000 		.4byte	0x6f2
+ 1739 07b5 05       		.uleb128 0x5
+ 1740 07b6 03       		.byte	0x3
+ 1741 07b7 00000000 		.4byte	buffer
+ 1742 07bb 17       		.uleb128 0x17
+ 1743 07bc A5000000 		.4byte	.LASF45
+ 1744 07c0 A5000000 		.4byte	.LASF45
+ 1745 07c4 06       		.byte	0x6
+ 1746 07c5 3A       		.byte	0x3a
+ 1747 07c6 17       		.uleb128 0x17
+ 1748 07c7 5D000000 		.4byte	.LASF46
+ 1749 07cb 5D000000 		.4byte	.LASF46
+ 1750 07cf 07       		.byte	0x7
+ 1751 07d0 5E       		.byte	0x5e
+ARM GAS  C:\Users\ariky\AppData\Local\Temp\ccEDxqgb.s 			page 37
+
+
+ 1752 07d1 17       		.uleb128 0x17
+ 1753 07d2 BF010000 		.4byte	.LASF47
+ 1754 07d6 BF010000 		.4byte	.LASF47
+ 1755 07da 08       		.byte	0x8
+ 1756 07db 57       		.byte	0x57
+ 1757 07dc 17       		.uleb128 0x17
+ 1758 07dd 2B000000 		.4byte	.LASF48
+ 1759 07e1 2B000000 		.4byte	.LASF48
+ 1760 07e5 09       		.byte	0x9
+ 1761 07e6 41       		.byte	0x41
+ 1762 07e7 17       		.uleb128 0x17
+ 1763 07e8 06020000 		.4byte	.LASF49
+ 1764 07ec 06020000 		.4byte	.LASF49
+ 1765 07f0 09       		.byte	0x9
+ 1766 07f1 3A       		.byte	0x3a
+ 1767 07f2 17       		.uleb128 0x17
+ 1768 07f3 78040000 		.4byte	.LASF50
+ 1769 07f7 78040000 		.4byte	.LASF50
+ 1770 07fb 09       		.byte	0x9
+ 1771 07fc 3D       		.byte	0x3d
+ 1772 07fd 17       		.uleb128 0x17
+ 1773 07fe A4020000 		.4byte	.LASF51
+ 1774 0802 A4020000 		.4byte	.LASF51
+ 1775 0806 0A       		.byte	0xa
+ 1776 0807 34       		.byte	0x34
+ 1777 0808 17       		.uleb128 0x17
+ 1778 0809 66030000 		.4byte	.LASF52
+ 1779 080d 66030000 		.4byte	.LASF52
+ 1780 0811 0A       		.byte	0xa
+ 1781 0812 D1       		.byte	0xd1
+ 1782 0813 17       		.uleb128 0x17
+ 1783 0814 4D000000 		.4byte	.LASF53
+ 1784 0818 4D000000 		.4byte	.LASF53
+ 1785 081c 0B       		.byte	0xb
+ 1786 081d 34       		.byte	0x34
+ 1787 081e 17       		.uleb128 0x17
+ 1788 081f 35030000 		.4byte	.LASF54
+ 1789 0823 35030000 		.4byte	.LASF54
+ 1790 0827 0B       		.byte	0xb
+ 1791 0828 D1       		.byte	0xd1
+ 1792 0829 17       		.uleb128 0x17
+ 1793 082a 4C010000 		.4byte	.LASF55
+ 1794 082e 4C010000 		.4byte	.LASF55
+ 1795 0832 0C       		.byte	0xc
+ 1796 0833 18       		.byte	0x18
+ 1797 0834 17       		.uleb128 0x17
+ 1798 0835 43020000 		.4byte	.LASF56
+ 1799 0839 43020000 		.4byte	.LASF56
+ 1800 083d 0D       		.byte	0xd
+ 1801 083e 18       		.byte	0x18
+ 1802 083f 17       		.uleb128 0x17
+ 1803 0840 10010000 		.4byte	.LASF57
+ 1804 0844 10010000 		.4byte	.LASF57
+ 1805 0848 0E       		.byte	0xe
+ 1806 0849 18       		.byte	0x18
+ 1807 084a 17       		.uleb128 0x17
+ 1808 084b 65020000 		.4byte	.LASF58
+ARM GAS  C:\Users\ariky\AppData\Local\Temp\ccEDxqgb.s 			page 38
+
+
+ 1809 084f 65020000 		.4byte	.LASF58
+ 1810 0853 06       		.byte	0x6
+ 1811 0854 38       		.byte	0x38
+ 1812 0855 17       		.uleb128 0x17
+ 1813 0856 E0030000 		.4byte	.LASF59
+ 1814 085a E0030000 		.4byte	.LASF59
+ 1815 085e 07       		.byte	0x7
+ 1816 085f 5A       		.byte	0x5a
+ 1817 0860 17       		.uleb128 0x17
+ 1818 0861 12030000 		.4byte	.LASF60
+ 1819 0865 12030000 		.4byte	.LASF60
+ 1820 0869 08       		.byte	0x8
+ 1821 086a 25       		.byte	0x25
+ 1822 086b 17       		.uleb128 0x17
+ 1823 086c 54030000 		.4byte	.LASF61
+ 1824 0870 54030000 		.4byte	.LASF61
+ 1825 0874 0F       		.byte	0xf
+ 1826 0875 1E       		.byte	0x1e
+ 1827 0876 17       		.uleb128 0x17
+ 1828 0877 00000000 		.4byte	.LASF62
+ 1829 087b 00000000 		.4byte	.LASF62
+ 1830 087f 10       		.byte	0x10
+ 1831 0880 38       		.byte	0x38
+ 1832 0881 17       		.uleb128 0x17
+ 1833 0882 CA000000 		.4byte	.LASF63
+ 1834 0886 CA000000 		.4byte	.LASF63
+ 1835 088a 10       		.byte	0x10
+ 1836 088b 3B       		.byte	0x3b
+ 1837 088c 17       		.uleb128 0x17
+ 1838 088d E2020000 		.4byte	.LASF64
+ 1839 0891 E2020000 		.4byte	.LASF64
+ 1840 0895 10       		.byte	0x10
+ 1841 0896 3F       		.byte	0x3f
+ 1842 0897 17       		.uleb128 0x17
+ 1843 0898 58010000 		.4byte	.LASF65
+ 1844 089c 58010000 		.4byte	.LASF65
+ 1845 08a0 10       		.byte	0x10
+ 1846 08a1 2F       		.byte	0x2f
+ 1847 08a2 17       		.uleb128 0x17
+ 1848 08a3 E2000000 		.4byte	.LASF66
+ 1849 08a7 E2000000 		.4byte	.LASF66
+ 1850 08ab 10       		.byte	0x10
+ 1851 08ac 29       		.byte	0x29
+ 1852 08ad 17       		.uleb128 0x17
+ 1853 08ae 51020000 		.4byte	.LASF67
+ 1854 08b2 51020000 		.4byte	.LASF67
+ 1855 08b6 11       		.byte	0x11
+ 1856 08b7 1E       		.byte	0x1e
+ 1857 08b8 18       		.uleb128 0x18
+ 1858 08b9 C5040000 		.4byte	.LASF68
+ 1859 08bd C5040000 		.4byte	.LASF68
+ 1860 08c1 12       		.byte	0x12
+ 1861 08c2 2701     		.2byte	0x127
+ 1862 08c4 18       		.uleb128 0x18
+ 1863 08c5 8E000000 		.4byte	.LASF69
+ 1864 08c9 8E000000 		.4byte	.LASF69
+ 1865 08cd 12       		.byte	0x12
+ARM GAS  C:\Users\ariky\AppData\Local\Temp\ccEDxqgb.s 			page 39
+
+
+ 1866 08ce 2A01     		.2byte	0x12a
+ 1867 08d0 18       		.uleb128 0x18
+ 1868 08d1 C2030000 		.4byte	.LASF70
+ 1869 08d5 C2030000 		.4byte	.LASF70
+ 1870 08d9 12       		.byte	0x12
+ 1871 08da 3301     		.2byte	0x133
+ 1872 08dc 17       		.uleb128 0x17
+ 1873 08dd F9000000 		.4byte	.LASF71
+ 1874 08e1 F9000000 		.4byte	.LASF71
+ 1875 08e5 13       		.byte	0x13
+ 1876 08e6 C7       		.byte	0xc7
+ 1877 08e7 17       		.uleb128 0x17
+ 1878 08e8 15000000 		.4byte	.LASF72
+ 1879 08ec 15000000 		.4byte	.LASF72
+ 1880 08f0 13       		.byte	0x13
+ 1881 08f1 C5       		.byte	0xc5
+ 1882 08f2 17       		.uleb128 0x17
+ 1883 08f3 B6000000 		.4byte	.LASF73
+ 1884 08f7 B6000000 		.4byte	.LASF73
+ 1885 08fb 13       		.byte	0x13
+ 1886 08fc 93       		.byte	0x93
+ 1887 08fd 17       		.uleb128 0x17
+ 1888 08fe 8E010000 		.4byte	.LASF74
+ 1889 0902 8E010000 		.4byte	.LASF74
+ 1890 0906 13       		.byte	0x13
+ 1891 0907 BE       		.byte	0xbe
+ 1892 0908 17       		.uleb128 0x17
+ 1893 0909 89020000 		.4byte	.LASF75
+ 1894 090d 89020000 		.4byte	.LASF75
+ 1895 0911 14       		.byte	0x14
+ 1896 0912 2F       		.byte	0x2f
+ 1897 0913 17       		.uleb128 0x17
+ 1898 0914 00040000 		.4byte	.LASF76
+ 1899 0918 00040000 		.4byte	.LASF76
+ 1900 091c 13       		.byte	0x13
+ 1901 091d C0       		.byte	0xc0
+ 1902 091e 17       		.uleb128 0x17
+ 1903 091f 76000000 		.4byte	.LASF77
+ 1904 0923 76000000 		.4byte	.LASF77
+ 1905 0927 13       		.byte	0x13
+ 1906 0928 CC       		.byte	0xcc
+ 1907 0929 17       		.uleb128 0x17
+ 1908 092a E4010000 		.4byte	.LASF78
+ 1909 092e E4010000 		.4byte	.LASF78
+ 1910 0932 13       		.byte	0x13
+ 1911 0933 C9       		.byte	0xc9
+ 1912 0934 17       		.uleb128 0x17
+ 1913 0935 9F010000 		.4byte	.LASF79
+ 1914 0939 9F010000 		.4byte	.LASF79
+ 1915 093d 13       		.byte	0x13
+ 1916 093e BF       		.byte	0xbf
+ 1917 093f 17       		.uleb128 0x17
+ 1918 0940 37040000 		.4byte	.LASF80
+ 1919 0944 37040000 		.4byte	.LASF80
+ 1920 0948 13       		.byte	0x13
+ 1921 0949 CB       		.byte	0xcb
+ 1922 094a 18       		.uleb128 0x18
+ARM GAS  C:\Users\ariky\AppData\Local\Temp\ccEDxqgb.s 			page 40
+
+
+ 1923 094b 19020000 		.4byte	.LASF81
+ 1924 094f 19020000 		.4byte	.LASF81
+ 1925 0953 12       		.byte	0x12
+ 1926 0954 2D01     		.2byte	0x12d
+ 1927 0956 18       		.uleb128 0x18
+ 1928 0957 79010000 		.4byte	.LASF82
+ 1929 095b 79010000 		.4byte	.LASF82
+ 1930 095f 12       		.byte	0x12
+ 1931 0960 2F01     		.2byte	0x12f
+ 1932 0962 18       		.uleb128 0x18
+ 1933 0963 4E040000 		.4byte	.LASF83
+ 1934 0967 4E040000 		.4byte	.LASF83
+ 1935 096b 12       		.byte	0x12
+ 1936 096c 2B01     		.2byte	0x12b
+ 1937 096e 17       		.uleb128 0x17
+ 1938 096f 6B040000 		.4byte	.LASF84
+ 1939 0973 6B040000 		.4byte	.LASF84
+ 1940 0977 06       		.byte	0x6
+ 1941 0978 3D       		.byte	0x3d
+ 1942 0979 17       		.uleb128 0x17
+ 1943 097a 1D030000 		.4byte	.LASF85
+ 1944 097e 1D030000 		.4byte	.LASF85
+ 1945 0982 06       		.byte	0x6
+ 1946 0983 61       		.byte	0x61
+ 1947 0984 00       		.byte	0
+ 1948              		.section	.debug_abbrev,"",%progbits
+ 1949              	.Ldebug_abbrev0:
+ 1950 0000 01       		.uleb128 0x1
+ 1951 0001 11       		.uleb128 0x11
+ 1952 0002 01       		.byte	0x1
+ 1953 0003 25       		.uleb128 0x25
+ 1954 0004 0E       		.uleb128 0xe
+ 1955 0005 13       		.uleb128 0x13
+ 1956 0006 0B       		.uleb128 0xb
+ 1957 0007 03       		.uleb128 0x3
+ 1958 0008 0E       		.uleb128 0xe
+ 1959 0009 1B       		.uleb128 0x1b
+ 1960 000a 0E       		.uleb128 0xe
+ 1961 000b 55       		.uleb128 0x55
+ 1962 000c 17       		.uleb128 0x17
+ 1963 000d 11       		.uleb128 0x11
+ 1964 000e 01       		.uleb128 0x1
+ 1965 000f 10       		.uleb128 0x10
+ 1966 0010 17       		.uleb128 0x17
+ 1967 0011 00       		.byte	0
+ 1968 0012 00       		.byte	0
+ 1969 0013 02       		.uleb128 0x2
+ 1970 0014 24       		.uleb128 0x24
+ 1971 0015 00       		.byte	0
+ 1972 0016 0B       		.uleb128 0xb
+ 1973 0017 0B       		.uleb128 0xb
+ 1974 0018 3E       		.uleb128 0x3e
+ 1975 0019 0B       		.uleb128 0xb
+ 1976 001a 03       		.uleb128 0x3
+ 1977 001b 0E       		.uleb128 0xe
+ 1978 001c 00       		.byte	0
+ 1979 001d 00       		.byte	0
+ARM GAS  C:\Users\ariky\AppData\Local\Temp\ccEDxqgb.s 			page 41
+
+
+ 1980 001e 03       		.uleb128 0x3
+ 1981 001f 16       		.uleb128 0x16
+ 1982 0020 00       		.byte	0
+ 1983 0021 03       		.uleb128 0x3
+ 1984 0022 0E       		.uleb128 0xe
+ 1985 0023 3A       		.uleb128 0x3a
+ 1986 0024 0B       		.uleb128 0xb
+ 1987 0025 3B       		.uleb128 0x3b
+ 1988 0026 0B       		.uleb128 0xb
+ 1989 0027 49       		.uleb128 0x49
+ 1990 0028 13       		.uleb128 0x13
+ 1991 0029 00       		.byte	0
+ 1992 002a 00       		.byte	0
+ 1993 002b 04       		.uleb128 0x4
+ 1994 002c 24       		.uleb128 0x24
+ 1995 002d 00       		.byte	0
+ 1996 002e 0B       		.uleb128 0xb
+ 1997 002f 0B       		.uleb128 0xb
+ 1998 0030 3E       		.uleb128 0x3e
+ 1999 0031 0B       		.uleb128 0xb
+ 2000 0032 03       		.uleb128 0x3
+ 2001 0033 08       		.uleb128 0x8
+ 2002 0034 00       		.byte	0
+ 2003 0035 00       		.byte	0
+ 2004 0036 05       		.uleb128 0x5
+ 2005 0037 16       		.uleb128 0x16
+ 2006 0038 00       		.byte	0
+ 2007 0039 03       		.uleb128 0x3
+ 2008 003a 0E       		.uleb128 0xe
+ 2009 003b 3A       		.uleb128 0x3a
+ 2010 003c 0B       		.uleb128 0xb
+ 2011 003d 3B       		.uleb128 0x3b
+ 2012 003e 05       		.uleb128 0x5
+ 2013 003f 49       		.uleb128 0x49
+ 2014 0040 13       		.uleb128 0x13
+ 2015 0041 00       		.byte	0
+ 2016 0042 00       		.byte	0
+ 2017 0043 06       		.uleb128 0x6
+ 2018 0044 35       		.uleb128 0x35
+ 2019 0045 00       		.byte	0
+ 2020 0046 49       		.uleb128 0x49
+ 2021 0047 13       		.uleb128 0x13
+ 2022 0048 00       		.byte	0
+ 2023 0049 00       		.byte	0
+ 2024 004a 07       		.uleb128 0x7
+ 2025 004b 2E       		.uleb128 0x2e
+ 2026 004c 00       		.byte	0
+ 2027 004d 3F       		.uleb128 0x3f
+ 2028 004e 19       		.uleb128 0x19
+ 2029 004f 03       		.uleb128 0x3
+ 2030 0050 08       		.uleb128 0x8
+ 2031 0051 3A       		.uleb128 0x3a
+ 2032 0052 0B       		.uleb128 0xb
+ 2033 0053 3B       		.uleb128 0x3b
+ 2034 0054 0B       		.uleb128 0xb
+ 2035 0055 27       		.uleb128 0x27
+ 2036 0056 19       		.uleb128 0x19
+ARM GAS  C:\Users\ariky\AppData\Local\Temp\ccEDxqgb.s 			page 42
+
+
+ 2037 0057 11       		.uleb128 0x11
+ 2038 0058 01       		.uleb128 0x1
+ 2039 0059 12       		.uleb128 0x12
+ 2040 005a 06       		.uleb128 0x6
+ 2041 005b 40       		.uleb128 0x40
+ 2042 005c 18       		.uleb128 0x18
+ 2043 005d 9742     		.uleb128 0x2117
+ 2044 005f 19       		.uleb128 0x19
+ 2045 0060 00       		.byte	0
+ 2046 0061 00       		.byte	0
+ 2047 0062 08       		.uleb128 0x8
+ 2048 0063 2E       		.uleb128 0x2e
+ 2049 0064 00       		.byte	0
+ 2050 0065 3F       		.uleb128 0x3f
+ 2051 0066 19       		.uleb128 0x19
+ 2052 0067 03       		.uleb128 0x3
+ 2053 0068 0E       		.uleb128 0xe
+ 2054 0069 3A       		.uleb128 0x3a
+ 2055 006a 0B       		.uleb128 0xb
+ 2056 006b 3B       		.uleb128 0x3b
+ 2057 006c 0B       		.uleb128 0xb
+ 2058 006d 27       		.uleb128 0x27
+ 2059 006e 19       		.uleb128 0x19
+ 2060 006f 11       		.uleb128 0x11
+ 2061 0070 01       		.uleb128 0x1
+ 2062 0071 12       		.uleb128 0x12
+ 2063 0072 06       		.uleb128 0x6
+ 2064 0073 40       		.uleb128 0x40
+ 2065 0074 18       		.uleb128 0x18
+ 2066 0075 9742     		.uleb128 0x2117
+ 2067 0077 19       		.uleb128 0x19
+ 2068 0078 00       		.byte	0
+ 2069 0079 00       		.byte	0
+ 2070 007a 09       		.uleb128 0x9
+ 2071 007b 2E       		.uleb128 0x2e
+ 2072 007c 01       		.byte	0x1
+ 2073 007d 3F       		.uleb128 0x3f
+ 2074 007e 19       		.uleb128 0x19
+ 2075 007f 03       		.uleb128 0x3
+ 2076 0080 0E       		.uleb128 0xe
+ 2077 0081 3A       		.uleb128 0x3a
+ 2078 0082 0B       		.uleb128 0xb
+ 2079 0083 3B       		.uleb128 0x3b
+ 2080 0084 0B       		.uleb128 0xb
+ 2081 0085 27       		.uleb128 0x27
+ 2082 0086 19       		.uleb128 0x19
+ 2083 0087 11       		.uleb128 0x11
+ 2084 0088 01       		.uleb128 0x1
+ 2085 0089 12       		.uleb128 0x12
+ 2086 008a 06       		.uleb128 0x6
+ 2087 008b 40       		.uleb128 0x40
+ 2088 008c 18       		.uleb128 0x18
+ 2089 008d 9742     		.uleb128 0x2117
+ 2090 008f 19       		.uleb128 0x19
+ 2091 0090 01       		.uleb128 0x1
+ 2092 0091 13       		.uleb128 0x13
+ 2093 0092 00       		.byte	0
+ARM GAS  C:\Users\ariky\AppData\Local\Temp\ccEDxqgb.s 			page 43
+
+
+ 2094 0093 00       		.byte	0
+ 2095 0094 0A       		.uleb128 0xa
+ 2096 0095 898201   		.uleb128 0x4109
+ 2097 0098 01       		.byte	0x1
+ 2098 0099 11       		.uleb128 0x11
+ 2099 009a 01       		.uleb128 0x1
+ 2100 009b 31       		.uleb128 0x31
+ 2101 009c 13       		.uleb128 0x13
+ 2102 009d 01       		.uleb128 0x1
+ 2103 009e 13       		.uleb128 0x13
+ 2104 009f 00       		.byte	0
+ 2105 00a0 00       		.byte	0
+ 2106 00a1 0B       		.uleb128 0xb
+ 2107 00a2 8A8201   		.uleb128 0x410a
+ 2108 00a5 00       		.byte	0
+ 2109 00a6 02       		.uleb128 0x2
+ 2110 00a7 18       		.uleb128 0x18
+ 2111 00a8 9142     		.uleb128 0x2111
+ 2112 00aa 18       		.uleb128 0x18
+ 2113 00ab 00       		.byte	0
+ 2114 00ac 00       		.byte	0
+ 2115 00ad 0C       		.uleb128 0xc
+ 2116 00ae 898201   		.uleb128 0x4109
+ 2117 00b1 00       		.byte	0
+ 2118 00b2 11       		.uleb128 0x11
+ 2119 00b3 01       		.uleb128 0x1
+ 2120 00b4 31       		.uleb128 0x31
+ 2121 00b5 13       		.uleb128 0x13
+ 2122 00b6 00       		.byte	0
+ 2123 00b7 00       		.byte	0
+ 2124 00b8 0D       		.uleb128 0xd
+ 2125 00b9 2E       		.uleb128 0x2e
+ 2126 00ba 01       		.byte	0x1
+ 2127 00bb 3F       		.uleb128 0x3f
+ 2128 00bc 19       		.uleb128 0x19
+ 2129 00bd 03       		.uleb128 0x3
+ 2130 00be 0E       		.uleb128 0xe
+ 2131 00bf 3A       		.uleb128 0x3a
+ 2132 00c0 0B       		.uleb128 0xb
+ 2133 00c1 3B       		.uleb128 0x3b
+ 2134 00c2 0B       		.uleb128 0xb
+ 2135 00c3 27       		.uleb128 0x27
+ 2136 00c4 19       		.uleb128 0x19
+ 2137 00c5 49       		.uleb128 0x49
+ 2138 00c6 13       		.uleb128 0x13
+ 2139 00c7 8701     		.uleb128 0x87
+ 2140 00c9 19       		.uleb128 0x19
+ 2141 00ca 11       		.uleb128 0x11
+ 2142 00cb 01       		.uleb128 0x1
+ 2143 00cc 12       		.uleb128 0x12
+ 2144 00cd 06       		.uleb128 0x6
+ 2145 00ce 40       		.uleb128 0x40
+ 2146 00cf 18       		.uleb128 0x18
+ 2147 00d0 9742     		.uleb128 0x2117
+ 2148 00d2 19       		.uleb128 0x19
+ 2149 00d3 01       		.uleb128 0x1
+ 2150 00d4 13       		.uleb128 0x13
+ARM GAS  C:\Users\ariky\AppData\Local\Temp\ccEDxqgb.s 			page 44
+
+
+ 2151 00d5 00       		.byte	0
+ 2152 00d6 00       		.byte	0
+ 2153 00d7 0E       		.uleb128 0xe
+ 2154 00d8 34       		.uleb128 0x34
+ 2155 00d9 00       		.byte	0
+ 2156 00da 03       		.uleb128 0x3
+ 2157 00db 0E       		.uleb128 0xe
+ 2158 00dc 3A       		.uleb128 0x3a
+ 2159 00dd 0B       		.uleb128 0xb
+ 2160 00de 3B       		.uleb128 0x3b
+ 2161 00df 0B       		.uleb128 0xb
+ 2162 00e0 49       		.uleb128 0x49
+ 2163 00e1 13       		.uleb128 0x13
+ 2164 00e2 02       		.uleb128 0x2
+ 2165 00e3 18       		.uleb128 0x18
+ 2166 00e4 00       		.byte	0
+ 2167 00e5 00       		.byte	0
+ 2168 00e6 0F       		.uleb128 0xf
+ 2169 00e7 34       		.uleb128 0x34
+ 2170 00e8 00       		.byte	0
+ 2171 00e9 03       		.uleb128 0x3
+ 2172 00ea 08       		.uleb128 0x8
+ 2173 00eb 3A       		.uleb128 0x3a
+ 2174 00ec 0B       		.uleb128 0xb
+ 2175 00ed 3B       		.uleb128 0x3b
+ 2176 00ee 0B       		.uleb128 0xb
+ 2177 00ef 49       		.uleb128 0x49
+ 2178 00f0 13       		.uleb128 0x13
+ 2179 00f1 02       		.uleb128 0x2
+ 2180 00f2 17       		.uleb128 0x17
+ 2181 00f3 00       		.byte	0
+ 2182 00f4 00       		.byte	0
+ 2183 00f5 10       		.uleb128 0x10
+ 2184 00f6 34       		.uleb128 0x34
+ 2185 00f7 00       		.byte	0
+ 2186 00f8 03       		.uleb128 0x3
+ 2187 00f9 0E       		.uleb128 0xe
+ 2188 00fa 3A       		.uleb128 0x3a
+ 2189 00fb 0B       		.uleb128 0xb
+ 2190 00fc 3B       		.uleb128 0x3b
+ 2191 00fd 0B       		.uleb128 0xb
+ 2192 00fe 49       		.uleb128 0x49
+ 2193 00ff 13       		.uleb128 0x13
+ 2194 0100 02       		.uleb128 0x2
+ 2195 0101 17       		.uleb128 0x17
+ 2196 0102 00       		.byte	0
+ 2197 0103 00       		.byte	0
+ 2198 0104 11       		.uleb128 0x11
+ 2199 0105 34       		.uleb128 0x34
+ 2200 0106 00       		.byte	0
+ 2201 0107 03       		.uleb128 0x3
+ 2202 0108 0E       		.uleb128 0xe
+ 2203 0109 3A       		.uleb128 0x3a
+ 2204 010a 0B       		.uleb128 0xb
+ 2205 010b 3B       		.uleb128 0x3b
+ 2206 010c 0B       		.uleb128 0xb
+ 2207 010d 49       		.uleb128 0x49
+ARM GAS  C:\Users\ariky\AppData\Local\Temp\ccEDxqgb.s 			page 45
+
+
+ 2208 010e 13       		.uleb128 0x13
+ 2209 010f 00       		.byte	0
+ 2210 0110 00       		.byte	0
+ 2211 0111 12       		.uleb128 0x12
+ 2212 0112 0B       		.uleb128 0xb
+ 2213 0113 01       		.byte	0x1
+ 2214 0114 11       		.uleb128 0x11
+ 2215 0115 01       		.uleb128 0x1
+ 2216 0116 12       		.uleb128 0x12
+ 2217 0117 06       		.uleb128 0x6
+ 2218 0118 01       		.uleb128 0x1
+ 2219 0119 13       		.uleb128 0x13
+ 2220 011a 00       		.byte	0
+ 2221 011b 00       		.byte	0
+ 2222 011c 13       		.uleb128 0x13
+ 2223 011d 01       		.uleb128 0x1
+ 2224 011e 01       		.byte	0x1
+ 2225 011f 49       		.uleb128 0x49
+ 2226 0120 13       		.uleb128 0x13
+ 2227 0121 01       		.uleb128 0x1
+ 2228 0122 13       		.uleb128 0x13
+ 2229 0123 00       		.byte	0
+ 2230 0124 00       		.byte	0
+ 2231 0125 14       		.uleb128 0x14
+ 2232 0126 21       		.uleb128 0x21
+ 2233 0127 00       		.byte	0
+ 2234 0128 49       		.uleb128 0x49
+ 2235 0129 13       		.uleb128 0x13
+ 2236 012a 2F       		.uleb128 0x2f
+ 2237 012b 0B       		.uleb128 0xb
+ 2238 012c 00       		.byte	0
+ 2239 012d 00       		.byte	0
+ 2240 012e 15       		.uleb128 0x15
+ 2241 012f 34       		.uleb128 0x34
+ 2242 0130 00       		.byte	0
+ 2243 0131 03       		.uleb128 0x3
+ 2244 0132 0E       		.uleb128 0xe
+ 2245 0133 3A       		.uleb128 0x3a
+ 2246 0134 0B       		.uleb128 0xb
+ 2247 0135 3B       		.uleb128 0x3b
+ 2248 0136 05       		.uleb128 0x5
+ 2249 0137 49       		.uleb128 0x49
+ 2250 0138 13       		.uleb128 0x13
+ 2251 0139 3F       		.uleb128 0x3f
+ 2252 013a 19       		.uleb128 0x19
+ 2253 013b 3C       		.uleb128 0x3c
+ 2254 013c 19       		.uleb128 0x19
+ 2255 013d 00       		.byte	0
+ 2256 013e 00       		.byte	0
+ 2257 013f 16       		.uleb128 0x16
+ 2258 0140 34       		.uleb128 0x34
+ 2259 0141 00       		.byte	0
+ 2260 0142 03       		.uleb128 0x3
+ 2261 0143 0E       		.uleb128 0xe
+ 2262 0144 3A       		.uleb128 0x3a
+ 2263 0145 0B       		.uleb128 0xb
+ 2264 0146 3B       		.uleb128 0x3b
+ARM GAS  C:\Users\ariky\AppData\Local\Temp\ccEDxqgb.s 			page 46
+
+
+ 2265 0147 0B       		.uleb128 0xb
+ 2266 0148 49       		.uleb128 0x49
+ 2267 0149 13       		.uleb128 0x13
+ 2268 014a 3F       		.uleb128 0x3f
+ 2269 014b 19       		.uleb128 0x19
+ 2270 014c 02       		.uleb128 0x2
+ 2271 014d 18       		.uleb128 0x18
+ 2272 014e 00       		.byte	0
+ 2273 014f 00       		.byte	0
+ 2274 0150 17       		.uleb128 0x17
+ 2275 0151 2E       		.uleb128 0x2e
+ 2276 0152 00       		.byte	0
+ 2277 0153 3F       		.uleb128 0x3f
+ 2278 0154 19       		.uleb128 0x19
+ 2279 0155 3C       		.uleb128 0x3c
+ 2280 0156 19       		.uleb128 0x19
+ 2281 0157 6E       		.uleb128 0x6e
+ 2282 0158 0E       		.uleb128 0xe
+ 2283 0159 03       		.uleb128 0x3
+ 2284 015a 0E       		.uleb128 0xe
+ 2285 015b 3A       		.uleb128 0x3a
+ 2286 015c 0B       		.uleb128 0xb
+ 2287 015d 3B       		.uleb128 0x3b
+ 2288 015e 0B       		.uleb128 0xb
+ 2289 015f 00       		.byte	0
+ 2290 0160 00       		.byte	0
+ 2291 0161 18       		.uleb128 0x18
+ 2292 0162 2E       		.uleb128 0x2e
+ 2293 0163 00       		.byte	0
+ 2294 0164 3F       		.uleb128 0x3f
+ 2295 0165 19       		.uleb128 0x19
+ 2296 0166 3C       		.uleb128 0x3c
+ 2297 0167 19       		.uleb128 0x19
+ 2298 0168 6E       		.uleb128 0x6e
+ 2299 0169 0E       		.uleb128 0xe
+ 2300 016a 03       		.uleb128 0x3
+ 2301 016b 0E       		.uleb128 0xe
+ 2302 016c 3A       		.uleb128 0x3a
+ 2303 016d 0B       		.uleb128 0xb
+ 2304 016e 3B       		.uleb128 0x3b
+ 2305 016f 05       		.uleb128 0x5
+ 2306 0170 00       		.byte	0
+ 2307 0171 00       		.byte	0
+ 2308 0172 00       		.byte	0
+ 2309              		.section	.debug_loc,"",%progbits
+ 2310              	.Ldebug_loc0:
+ 2311              	.LLST0:
+ 2312 0000 3C000000 		.4byte	.LVL13
+ 2313 0004 40000000 		.4byte	.LVL14
+ 2314 0008 0200     		.2byte	0x2
+ 2315 000a 30       		.byte	0x30
+ 2316 000b 9F       		.byte	0x9f
+ 2317 000c 40000000 		.4byte	.LVL14
+ 2318 0010 60000000 		.4byte	.LVL16
+ 2319 0014 0100     		.2byte	0x1
+ 2320 0016 53       		.byte	0x53
+ 2321 0017 00000000 		.4byte	0
+ARM GAS  C:\Users\ariky\AppData\Local\Temp\ccEDxqgb.s 			page 47
+
+
+ 2322 001b 00000000 		.4byte	0
+ 2323              	.LLST1:
+ 2324 001f 3C000000 		.4byte	.LVL13
+ 2325 0023 76010000 		.4byte	.LVL51
+ 2326 0027 0200     		.2byte	0x2
+ 2327 0029 31       		.byte	0x31
+ 2328 002a 9F       		.byte	0x9f
+ 2329 002b 76010000 		.4byte	.LVL51
+ 2330 002f B4010000 		.4byte	.LVL61
+ 2331 0033 0100     		.2byte	0x1
+ 2332 0035 54       		.byte	0x54
+ 2333 0036 B4010000 		.4byte	.LVL61
+ 2334 003a B8010000 		.4byte	.LVL62
+ 2335 003e 0200     		.2byte	0x2
+ 2336 0040 30       		.byte	0x30
+ 2337 0041 9F       		.byte	0x9f
+ 2338 0042 B8010000 		.4byte	.LVL62
+ 2339 0046 D4010000 		.4byte	.LVL68
+ 2340 004a 0100     		.2byte	0x1
+ 2341 004c 54       		.byte	0x54
+ 2342 004d D4010000 		.4byte	.LVL68
+ 2343 0051 D6010000 		.4byte	.LVL69
+ 2344 0055 0200     		.2byte	0x2
+ 2345 0057 31       		.byte	0x31
+ 2346 0058 9F       		.byte	0x9f
+ 2347 0059 D6010000 		.4byte	.LVL69
+ 2348 005d A0020000 		.4byte	.LFE66
+ 2349 0061 0100     		.2byte	0x1
+ 2350 0063 54       		.byte	0x54
+ 2351 0064 00000000 		.4byte	0
+ 2352 0068 00000000 		.4byte	0
+ 2353              	.LLST2:
+ 2354 006c 6E000000 		.4byte	.LVL18
+ 2355 0070 D0000000 		.4byte	.LVL28
+ 2356 0074 0100     		.2byte	0x1
+ 2357 0076 56       		.byte	0x56
+ 2358 0077 00000000 		.4byte	0
+ 2359 007b 00000000 		.4byte	0
+ 2360              	.LLST3:
+ 2361 007f 40010000 		.4byte	.LVL40
+ 2362 0083 76010000 		.4byte	.LVL51
+ 2363 0087 0200     		.2byte	0x2
+ 2364 0089 30       		.byte	0x30
+ 2365 008a 9F       		.byte	0x9f
+ 2366 008b 84010000 		.4byte	.LVL53
+ 2367 008f 8B010000 		.4byte	.LVL54-1
+ 2368 0093 0100     		.2byte	0x1
+ 2369 0095 50       		.byte	0x50
+ 2370 0096 00000000 		.4byte	0
+ 2371 009a 00000000 		.4byte	0
+ 2372              	.LLST4:
+ 2373 009e 40010000 		.4byte	.LVL40
+ 2374 00a2 62010000 		.4byte	.LVL45
+ 2375 00a6 0200     		.2byte	0x2
+ 2376 00a8 30       		.byte	0x30
+ 2377 00a9 9F       		.byte	0x9f
+ 2378 00aa 62010000 		.4byte	.LVL45
+ARM GAS  C:\Users\ariky\AppData\Local\Temp\ccEDxqgb.s 			page 48
+
+
+ 2379 00ae 64010000 		.4byte	.LVL46
+ 2380 00b2 0100     		.2byte	0x1
+ 2381 00b4 50       		.byte	0x50
+ 2382 00b5 64010000 		.4byte	.LVL46
+ 2383 00b9 68010000 		.4byte	.LVL47
+ 2384 00bd 0300     		.2byte	0x3
+ 2385 00bf 70       		.byte	0x70
+ 2386 00c0 01       		.sleb128 1
+ 2387 00c1 9F       		.byte	0x9f
+ 2388 00c2 68010000 		.4byte	.LVL47
+ 2389 00c6 6B010000 		.4byte	.LVL48-1
+ 2390 00ca 0200     		.2byte	0x2
+ 2391 00cc 7D       		.byte	0x7d
+ 2392 00cd 00       		.sleb128 0
+ 2393 00ce 00000000 		.4byte	0
+ 2394 00d2 00000000 		.4byte	0
+ 2395              	.LLST5:
+ 2396 00d6 A4010000 		.4byte	.LVL58
+ 2397 00da AA010000 		.4byte	.LVL59
+ 2398 00de 0100     		.2byte	0x1
+ 2399 00e0 50       		.byte	0x50
+ 2400 00e1 AA010000 		.4byte	.LVL59
+ 2401 00e5 B8010000 		.4byte	.LVL62
+ 2402 00e9 0100     		.2byte	0x1
+ 2403 00eb 53       		.byte	0x53
+ 2404 00ec 00000000 		.4byte	0
+ 2405 00f0 00000000 		.4byte	0
+ 2406              	.LLST6:
+ 2407 00f4 C4010000 		.4byte	.LVL65
+ 2408 00f8 CA010000 		.4byte	.LVL66
+ 2409 00fc 0100     		.2byte	0x1
+ 2410 00fe 50       		.byte	0x50
+ 2411 00ff CA010000 		.4byte	.LVL66
+ 2412 0103 D6010000 		.4byte	.LVL69
+ 2413 0107 0100     		.2byte	0x1
+ 2414 0109 53       		.byte	0x53
+ 2415 010a 00000000 		.4byte	0
+ 2416 010e 00000000 		.4byte	0
+ 2417              		.section	.debug_aranges,"",%progbits
+ 2418 0000 34000000 		.4byte	0x34
+ 2419 0004 0200     		.2byte	0x2
+ 2420 0006 00000000 		.4byte	.Ldebug_info0
+ 2421 000a 04       		.byte	0x4
+ 2422 000b 00       		.byte	0
+ 2423 000c 0000     		.2byte	0
+ 2424 000e 0000     		.2byte	0
+ 2425 0010 00000000 		.4byte	.LFB63
+ 2426 0014 30000000 		.4byte	.LFE63-.LFB63
+ 2427 0018 00000000 		.4byte	.LFB64
+ 2428 001c 30000000 		.4byte	.LFE64-.LFB64
+ 2429 0020 00000000 		.4byte	.LFB65
+ 2430 0024 18000000 		.4byte	.LFE65-.LFB65
+ 2431 0028 00000000 		.4byte	.LFB66
+ 2432 002c A0020000 		.4byte	.LFE66-.LFB66
+ 2433 0030 00000000 		.4byte	0
+ 2434 0034 00000000 		.4byte	0
+ 2435              		.section	.debug_ranges,"",%progbits
+ARM GAS  C:\Users\ariky\AppData\Local\Temp\ccEDxqgb.s 			page 49
+
+
+ 2436              	.Ldebug_ranges0:
+ 2437 0000 00000000 		.4byte	.LFB63
+ 2438 0004 30000000 		.4byte	.LFE63
+ 2439 0008 00000000 		.4byte	.LFB64
+ 2440 000c 30000000 		.4byte	.LFE64
+ 2441 0010 00000000 		.4byte	.LFB65
+ 2442 0014 18000000 		.4byte	.LFE65
+ 2443 0018 00000000 		.4byte	.LFB66
+ 2444 001c A0020000 		.4byte	.LFE66
+ 2445 0020 00000000 		.4byte	0
+ 2446 0024 00000000 		.4byte	0
+ 2447              		.section	.debug_line,"",%progbits
+ 2448              	.Ldebug_line0:
+ 2449 0000 DA020000 		.section	.debug_str,"MS",%progbits,1
+ 2449      0200F801 
+ 2449      00000201 
+ 2449      FB0E0D00 
+ 2449      01010101 
+ 2450              	.LASF62:
+ 2451 0000 4379446D 		.ascii	"CyDmaTdAllocate\000"
+ 2451      61546441 
+ 2451      6C6C6F63 
+ 2451      61746500 
+ 2452              	.LASF20:
+ 2453 0010 656E6431 		.ascii	"end1\000"
+ 2453      00
+ 2454              	.LASF72:
+ 2455 0015 49324353 		.ascii	"I2CS_SlaveInitReadBuf\000"
+ 2455      5F536C61 
+ 2455      7665496E 
+ 2455      69745265 
+ 2455      61644275 
+ 2456              	.LASF48:
+ 2457 002b 4144435F 		.ascii	"ADC_GetResult16\000"
+ 2457      47657452 
+ 2457      6573756C 
+ 2457      74313600 
+ 2458              	.LASF21:
+ 2459 003b 73726331 		.ascii	"src1RAM1\000"
+ 2459      52414D31 
+ 2459      00
+ 2460              	.LASF22:
+ 2461 0044 73726331 		.ascii	"src1RAM2\000"
+ 2461      52414D32 
+ 2461      00
+ 2462              	.LASF53:
+ 2463 004d 4144435F 		.ascii	"ADC_SAR_1_Start\000"
+ 2463      5341525F 
+ 2463      315F5374 
+ 2463      61727400 
+ 2464              	.LASF46:
+ 2465 005d 54696D65 		.ascii	"Timer_ReadStatusRegister\000"
+ 2465      725F5265 
+ 2465      61645374 
+ 2465      61747573 
+ 2465      52656769 
+ 2466              	.LASF77:
+ARM GAS  C:\Users\ariky\AppData\Local\Temp\ccEDxqgb.s 			page 50
+
+
+ 2467 0076 49324353 		.ascii	"I2CS_SlaveClearWriteBuf\000"
+ 2467      5F536C61 
+ 2467      7665436C 
+ 2467      65617257 
+ 2467      72697465 
+ 2468              	.LASF69:
+ 2469 008e 55534246 		.ascii	"USBFS_GetConfiguration\000"
+ 2469      535F4765 
+ 2469      74436F6E 
+ 2469      66696775 
+ 2469      72617469 
+ 2470              	.LASF45:
+ 2471 00a5 4C43445F 		.ascii	"LCD_WriteControl\000"
+ 2471      57726974 
+ 2471      65436F6E 
+ 2471      74726F6C 
+ 2471      00
+ 2472              	.LASF73:
+ 2473 00b6 49324353 		.ascii	"I2CS_Start\000"
+ 2473      5F537461 
+ 2473      727400
+ 2474              	.LASF29:
+ 2475 00c1 444D415F 		.ascii	"DMA_1_TD\000"
+ 2475      315F5444 
+ 2475      00
+ 2476              	.LASF63:
+ 2477 00ca 4379446D 		.ascii	"CyDmaTdSetConfiguration\000"
+ 2477      61546453 
+ 2477      6574436F 
+ 2477      6E666967 
+ 2477      75726174 
+ 2478              	.LASF66:
+ 2479 00e2 4379446D 		.ascii	"CyDmaChEnable\000"
+ 2479      61436845 
+ 2479      6E61626C 
+ 2479      6500
+ 2480              	.LASF19:
+ 2481 00f0 73697A65 		.ascii	"sizetype\000"
+ 2481      74797065 
+ 2481      00
+ 2482              	.LASF71:
+ 2483 00f9 49324353 		.ascii	"I2CS_SlaveInitWriteBuf\000"
+ 2483      5F536C61 
+ 2483      7665496E 
+ 2483      69745772 
+ 2483      69746542 
+ 2484              	.LASF57:
+ 2485 0110 4F6E656D 		.ascii	"Onems_StartEx\000"
+ 2485      735F5374 
+ 2485      61727445 
+ 2485      7800
+ 2486              	.LASF90:
+ 2487 011e 6D61696E 		.ascii	"main\000"
+ 2487      00
+ 2488              	.LASF25:
+ 2489 0123 706F7446 		.ascii	"potFlag\000"
+ 2489      6C616700 
+ARM GAS  C:\Users\ariky\AppData\Local\Temp\ccEDxqgb.s 			page 51
+
+
+ 2490              	.LASF43:
+ 2491 012b 74696D65 		.ascii	"timeFlag\000"
+ 2491      466C6167 
+ 2491      00
+ 2492              	.LASF2:
+ 2493 0134 73686F72 		.ascii	"short int\000"
+ 2493      7420696E 
+ 2493      7400
+ 2494              	.LASF32:
+ 2495 013e 72656164 		.ascii	"readbyteCount\000"
+ 2495      62797465 
+ 2495      436F756E 
+ 2495      7400
+ 2496              	.LASF55:
+ 2497 014c 6973725F 		.ascii	"isr_StartEx\000"
+ 2497      53746172 
+ 2497      74457800 
+ 2498              	.LASF65:
+ 2499 0158 4379446D 		.ascii	"CyDmaChSetInitialTd\000"
+ 2499      61436853 
+ 2499      6574496E 
+ 2499      69746961 
+ 2499      6C546400 
+ 2500              	.LASF12:
+ 2501 016c 75696E74 		.ascii	"uint16\000"
+ 2501      313600
+ 2502              	.LASF11:
+ 2503 0173 75696E74 		.ascii	"uint8\000"
+ 2503      3800
+ 2504              	.LASF82:
+ 2505 0179 55534246 		.ascii	"USBFS_LoadInEP\000"
+ 2505      535F4C6F 
+ 2505      6164496E 
+ 2505      455000
+ 2506              	.LASF37:
+ 2507 0188 666C6167 		.ascii	"flag1\000"
+ 2507      3100
+ 2508              	.LASF74:
+ 2509 018e 49324353 		.ascii	"I2CS_SlaveStatus\000"
+ 2509      5F536C61 
+ 2509      76655374 
+ 2509      61747573 
+ 2509      00
+ 2510              	.LASF79:
+ 2511 019f 49324353 		.ascii	"I2CS_SlaveClearReadStatus\000"
+ 2511      5F536C61 
+ 2511      7665436C 
+ 2511      65617252 
+ 2511      65616453 
+ 2512              	.LASF14:
+ 2513 01b9 666C6F61 		.ascii	"float\000"
+ 2513      7400
+ 2514              	.LASF47:
+ 2515 01bf 414D7578 		.ascii	"AMux_Select\000"
+ 2515      5F53656C 
+ 2515      65637400 
+ 2516              	.LASF6:
+ARM GAS  C:\Users\ariky\AppData\Local\Temp\ccEDxqgb.s 			page 52
+
+
+ 2517 01cb 6C6F6E67 		.ascii	"long long int\000"
+ 2517      206C6F6E 
+ 2517      6720696E 
+ 2517      7400
+ 2518              	.LASF27:
+ 2519 01d9 444D415F 		.ascii	"DMA_1_Chan\000"
+ 2519      315F4368 
+ 2519      616E00
+ 2520              	.LASF78:
+ 2521 01e4 49324353 		.ascii	"I2CS_SlaveGetReadBufSize\000"
+ 2521      5F536C61 
+ 2521      76654765 
+ 2521      74526561 
+ 2521      64427566 
+ 2522              	.LASF26:
+ 2523 01fd 444D415F 		.ascii	"DMA_Chan\000"
+ 2523      4368616E 
+ 2523      00
+ 2524              	.LASF49:
+ 2525 0206 4144435F 		.ascii	"ADC_Start\000"
+ 2525      53746172 
+ 2525      7400
+ 2526              	.LASF4:
+ 2527 0210 6C6F6E67 		.ascii	"long int\000"
+ 2527      20696E74 
+ 2527      00
+ 2528              	.LASF81:
+ 2529 0219 55534246 		.ascii	"USBFS_GetEPState\000"
+ 2529      535F4765 
+ 2529      74455053 
+ 2529      74617465 
+ 2529      00
+ 2530              	.LASF23:
+ 2531 022a 73726332 		.ascii	"src2RAM1\000"
+ 2531      52414D31 
+ 2531      00
+ 2532              	.LASF24:
+ 2533 0233 73726332 		.ascii	"src2RAM2\000"
+ 2533      52414D32 
+ 2533      00
+ 2534              	.LASF28:
+ 2535 023c 444D415F 		.ascii	"DMA_TD\000"
+ 2535      544400
+ 2536              	.LASF56:
+ 2537 0243 6973725F 		.ascii	"isr_1_StartEx\000"
+ 2537      315F5374 
+ 2537      61727445 
+ 2537      7800
+ 2538              	.LASF67:
+ 2539 0251 444D415F 		.ascii	"DMA_1_DmaInitialize\000"
+ 2539      315F446D 
+ 2539      61496E69 
+ 2539      7469616C 
+ 2539      697A6500 
+ 2540              	.LASF58:
+ 2541 0265 4C43445F 		.ascii	"LCD_Start\000"
+ 2541      53746172 
+ARM GAS  C:\Users\ariky\AppData\Local\Temp\ccEDxqgb.s 			page 53
+
+
+ 2541      7400
+ 2542              	.LASF18:
+ 2543 026f 6C6F6E67 		.ascii	"long double\000"
+ 2543      20646F75 
+ 2543      626C6500 
+ 2544              	.LASF1:
+ 2545 027b 756E7369 		.ascii	"unsigned char\000"
+ 2545      676E6564 
+ 2545      20636861 
+ 2545      7200
+ 2546              	.LASF75:
+ 2547 0289 436C6F63 		.ascii	"Clock_2_SetDividerRegister\000"
+ 2547      6B5F325F 
+ 2547      53657444 
+ 2547      69766964 
+ 2547      65725265 
+ 2548              	.LASF51:
+ 2549 02a4 4144435F 		.ascii	"ADC_SAR_Start\000"
+ 2549      5341525F 
+ 2549      53746172 
+ 2549      7400
+ 2550              	.LASF0:
+ 2551 02b2 7369676E 		.ascii	"signed char\000"
+ 2551      65642063 
+ 2551      68617200 
+ 2552              	.LASF7:
+ 2553 02be 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 2553      206C6F6E 
+ 2553      6720756E 
+ 2553      7369676E 
+ 2553      65642069 
+ 2554              	.LASF8:
+ 2555 02d5 756E7369 		.ascii	"unsigned int\000"
+ 2555      676E6564 
+ 2555      20696E74 
+ 2555      00
+ 2556              	.LASF64:
+ 2557 02e2 4379446D 		.ascii	"CyDmaTdSetAddress\000"
+ 2557      61546453 
+ 2557      65744164 
+ 2557      64726573 
+ 2557      7300
+ 2558              	.LASF89:
+ 2559 02f4 74696D65 		.ascii	"time\000"
+ 2559      00
+ 2560              	.LASF38:
+ 2561 02f9 666C6167 		.ascii	"flag2\000"
+ 2561      3200
+ 2562              	.LASF3:
+ 2563 02ff 73686F72 		.ascii	"short unsigned int\000"
+ 2563      7420756E 
+ 2563      7369676E 
+ 2563      65642069 
+ 2563      6E7400
+ 2564              	.LASF60:
+ 2565 0312 414D7578 		.ascii	"AMux_Start\000"
+ 2565      5F537461 
+ARM GAS  C:\Users\ariky\AppData\Local\Temp\ccEDxqgb.s 			page 54
+
+
+ 2565      727400
+ 2566              	.LASF85:
+ 2567 031d 4C43445F 		.ascii	"LCD_PrintU32Number\000"
+ 2567      5072696E 
+ 2567      74553332 
+ 2567      4E756D62 
+ 2567      657200
+ 2568              	.LASF16:
+ 2569 0330 63686172 		.ascii	"char\000"
+ 2569      00
+ 2570              	.LASF54:
+ 2571 0335 4144435F 		.ascii	"ADC_SAR_1_StartConvert\000"
+ 2571      5341525F 
+ 2571      315F5374 
+ 2571      61727443 
+ 2571      6F6E7665 
+ 2572              	.LASF10:
+ 2573 034c 696E7433 		.ascii	"int32_t\000"
+ 2573      325F7400 
+ 2574              	.LASF61:
+ 2575 0354 444D415F 		.ascii	"DMA_DmaInitialize\000"
+ 2575      446D6149 
+ 2575      6E697469 
+ 2575      616C697A 
+ 2575      6500
+ 2576              	.LASF52:
+ 2577 0366 4144435F 		.ascii	"ADC_SAR_StartConvert\000"
+ 2577      5341525F 
+ 2577      53746172 
+ 2577      74436F6E 
+ 2577      76657274 
+ 2578              	.LASF44:
+ 2579 037b 62756666 		.ascii	"buffer\000"
+ 2579      657200
+ 2580              	.LASF13:
+ 2581 0382 75696E74 		.ascii	"uint32\000"
+ 2581      333200
+ 2582              	.LASF87:
+ 2583 0389 6D61696E 		.ascii	"main.c\000"
+ 2583      2E6300
+ 2584              	.LASF17:
+ 2585 0390 72656738 		.ascii	"reg8\000"
+ 2585      00
+ 2586              	.LASF5:
+ 2587 0395 6C6F6E67 		.ascii	"long unsigned int\000"
+ 2587      20756E73 
+ 2587      69676E65 
+ 2587      6420696E 
+ 2587      7400
+ 2588              	.LASF39:
+ 2589 03a7 73726331 		.ascii	"src1Flag1\000"
+ 2589      466C6167 
+ 2589      3100
+ 2590              	.LASF15:
+ 2591 03b1 646F7562 		.ascii	"double\000"
+ 2591      6C6500
+ 2592              	.LASF40:
+ARM GAS  C:\Users\ariky\AppData\Local\Temp\ccEDxqgb.s 			page 55
+
+
+ 2593 03b8 73726331 		.ascii	"src1Flag2\000"
+ 2593      466C6167 
+ 2593      3200
+ 2594              	.LASF70:
+ 2595 03c2 55534246 		.ascii	"USBFS_EnableOutEP\000"
+ 2595      535F456E 
+ 2595      61626C65 
+ 2595      4F757445 
+ 2595      5000
+ 2596              	.LASF33:
+ 2597 03d4 636F6D6D 		.ascii	"command_reg\000"
+ 2597      616E645F 
+ 2597      72656700 
+ 2598              	.LASF59:
+ 2599 03e0 54696D65 		.ascii	"Timer_Start\000"
+ 2599      725F5374 
+ 2599      61727400 
+ 2600              	.LASF41:
+ 2601 03ec 73726332 		.ascii	"src2Flag1\000"
+ 2601      466C6167 
+ 2601      3100
+ 2602              	.LASF42:
+ 2603 03f6 73726332 		.ascii	"src2Flag2\000"
+ 2603      466C6167 
+ 2603      3200
+ 2604              	.LASF76:
+ 2605 0400 49324353 		.ascii	"I2CS_SlaveClearWriteStatus\000"
+ 2605      5F536C61 
+ 2605      7665436C 
+ 2605      65617257 
+ 2605      72697465 
+ 2606              	.LASF9:
+ 2607 041b 5F5F696E 		.ascii	"__int32_t\000"
+ 2607      7433325F 
+ 2607      7400
+ 2608              	.LASF31:
+ 2609 0425 77726974 		.ascii	"write_buffer\000"
+ 2609      655F6275 
+ 2609      66666572 
+ 2609      00
+ 2610              	.LASF34:
+ 2611 0432 61646331 		.ascii	"adc1\000"
+ 2611      00
+ 2612              	.LASF80:
+ 2613 0437 49324353 		.ascii	"I2CS_SlaveClearReadBuf\000"
+ 2613      5F536C61 
+ 2613      7665436C 
+ 2613      65617252 
+ 2613      65616442 
+ 2614              	.LASF83:
+ 2615 044e 55534246 		.ascii	"USBFS_IsConfigurationChanged\000"
+ 2615      535F4973 
+ 2615      436F6E66 
+ 2615      69677572 
+ 2615      6174696F 
+ 2616              	.LASF84:
+ 2617 046b 4C43445F 		.ascii	"LCD_Position\000"
+ARM GAS  C:\Users\ariky\AppData\Local\Temp\ccEDxqgb.s 			page 56
+
+
+ 2617      506F7369 
+ 2617      74696F6E 
+ 2617      00
+ 2618              	.LASF50:
+ 2619 0478 4144435F 		.ascii	"ADC_StartConvert\000"
+ 2619      53746172 
+ 2619      74436F6E 
+ 2619      76657274 
+ 2619      00
+ 2620              	.LASF88:
+ 2621 0489 433A5C55 		.ascii	"C:\\Users\\ariky\\Documents\\PSoC Creator\\Lab4\\La"
+ 2621      73657273 
+ 2621      5C617269 
+ 2621      6B795C44 
+ 2621      6F63756D 
+ 2622 04b6 6250726F 		.ascii	"bProject.cydsn\000"
+ 2622      6A656374 
+ 2622      2E637964 
+ 2622      736E00
+ 2623              	.LASF68:
+ 2624 04c5 55534246 		.ascii	"USBFS_Start\000"
+ 2624      535F5374 
+ 2624      61727400 
+ 2625              	.LASF36:
+ 2626 04d1 49544D5F 		.ascii	"ITM_RxBuffer\000"
+ 2626      52784275 
+ 2626      66666572 
+ 2626      00
+ 2627              	.LASF86:
+ 2628 04de 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 2628      43313120 
+ 2628      352E342E 
+ 2628      31203230 
+ 2628      31363036 
+ 2629 0511 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m3 -mthumb -g -O"
+ 2629      20726576 
+ 2629      6973696F 
+ 2629      6E203233 
+ 2629      37373135 
+ 2630 0544 67202D66 		.ascii	"g -ffunction-sections -ffat-lto-objects\000"
+ 2630      66756E63 
+ 2630      74696F6E 
+ 2630      2D736563 
+ 2630      74696F6E 
+ 2631              	.LASF35:
+ 2632 056c 61646332 		.ascii	"adc2\000"
+ 2632      00
+ 2633              	.LASF30:
+ 2634 0571 72656164 		.ascii	"read_buffer\000"
+ 2634      5F627566 
+ 2634      66657200 
+ 2635              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran
