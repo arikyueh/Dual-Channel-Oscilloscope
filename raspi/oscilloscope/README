@@ -1,0 +1,4 @@
+This directory is organized as follows:
+
+src: All Raspberry Pi source files for the oscilloscope project
+bin: Executables and makefile
